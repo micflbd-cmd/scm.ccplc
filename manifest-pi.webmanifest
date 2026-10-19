@@ -1,0 +1,38 @@
+{
+  "id": "./pi-data-input.html",
+  "name": "Crown Cement \u2014 Supply Chain Master",
+  "short_name": "SCM",
+  "description": "PI, LC, shipment, C&F, duty and reports for Crown Cement PLC",
+  "start_url": "./pi-data-input.html",
+  "icons": [
+    {
+      "src": "icons/pi-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/pi-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/pi-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": [
+    "business",
+    "productivity"
+  ],
+  "background_color": "#0a1e42",
+  "theme_color": "#0a1e42"
+}
