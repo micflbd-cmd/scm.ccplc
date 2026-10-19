@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sign in — Crown Cement PLC</title>
+<style>
+  :root{--navy:#0b1c36;--navy2:#16355f;--blue:#1f5fe0;--ink:#121c4d;--muted:#5b6785;--line:#d9dfea;--red:#b3261e;--redbg:#fce9e8;--green:#157347;--greenbg:#e6f5ec;--amber:#8a5a00;--amberbg:#fff4de}
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%}
+  body{font-family:Roboto,"Segoe UI",system-ui,-apple-system,Arial,sans-serif;color:var(--ink);
+    background:linear-gradient(160deg,var(--navy2) 0%,var(--navy) 60%,#08111f 100%) fixed;
+    padding:max(28px,env(safe-area-inset-top)) 16px max(28px,env(safe-area-inset-bottom));display:flex;flex-direction:column;align-items:center}
+  .brand{text-align:center;color:#fff;margin:14px 0 22px}
+  .brand h1{margin:0;font-size:30px;font-weight:700;letter-spacing:.2px}
+  .brand p{margin:6px 0 0;color:#a9b8d6;font-size:17px}
+  .card{width:100%;max-width:460px;background:#fff;border-radius:26px;padding:28px 24px 24px;box-shadow:0 18px 50px rgba(0,0,0,.35)}
+  .msg{display:none;border-radius:14px;padding:14px 16px;font-size:15px;line-height:1.45;margin-bottom:14px}
+  .msg.show{display:block}.msg.err{background:var(--redbg);color:var(--red)}.msg.ok{background:var(--greenbg);color:var(--green)}.msg.warn{background:var(--amberbg);color:var(--amber)}
+  .tabs{display:flex;background:#eef2f9;border-radius:16px;padding:6px;gap:6px;margin-bottom:20px}
+  .tabs button{flex:1;border:0;background:transparent;border-radius:12px;padding:13px 8px;font:inherit;font-size:17px;font-weight:700;color:var(--muted);cursor:pointer}
+  .tabs button.on{background:#fff;color:var(--blue);box-shadow:0 2px 8px rgba(20,40,90,.15)}
+  .panel{display:none}.panel.on{display:block}
+  label{display:block;font-weight:700;font-size:16px;margin:16px 0 8px}
+  input,select{width:100%;font:inherit;font-size:17px;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:16px 16px;outline:none}
+  input:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(31,95,224,.15)}
+  .pw{position:relative}.pw input{padding-right:78px}
+  .pw button{position:absolute;right:6px;top:50%;transform:translateY(-50%);border:0;background:transparent;color:var(--muted);font:inherit;font-weight:700;font-size:16px;padding:10px 14px;cursor:pointer}
+  .keep{display:flex;align-items:center;gap:12px;margin:20px 0 6px;font-weight:600;color:#3b475f;font-size:17px;cursor:pointer}
+  .keep input{width:26px;height:26px;padding:0;accent-color:var(--blue)}
+  .go{width:100%;margin-top:20px;border:0;border-radius:16px;background:var(--blue);color:#fff;font:inherit;font-size:19px;font-weight:700;padding:17px;cursor:pointer}
+  .go:disabled{opacity:.6;cursor:wait}
+  .hint{font-size:14px;color:var(--muted);margin:10px 2px 0;line-height:1.45}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:420px){.row2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+  <div class="brand"><h1>Crown Cement PLC</h1><p>Supply Chain Master System</p></div>
+
+  <div class="card">
+    <div class="msg" id="msg"></div>
+
+    <!-- First-time setup: shown only while nobody has a password yet -->
+    <div class="panel" id="pSetup">
+      <div class="msg warn show" style="margin-bottom:6px">First-time setup: create the <b>Administrator</b> account. After this, everyone must sign in.</div>
+      <label for="s_name">Full name</label><input id="s_name" autocomplete="name">
+      <label for="s_user">Username</label><input id="s_user" autocomplete="username" autocapitalize="none" spellcheck="false">
+      <label for="s_email">Email</label><input id="s_email" type="email" autocomplete="email">
+      <label for="s_pw">Password</label><div class="pw"><input id="s_pw" type="password" autocomplete="new-password"><button type="button" data-show="s_pw">Show</button></div>
+      <div class="hint">At least 8 characters.</div>
+      <button class="go" id="s_go" type="button">Create administrator</button>
+    </div>
+
+    <div id="pMain">
+      <div class="tabs" id="tabs"><button type="button" class="on" data-t="in">Sign in</button><button type="button" data-t="req">Request access</button></div>
+
+      <div class="panel on" id="pIn">
+        <label for="l_user" style="margin-top:4px">Username</label>
+        <input id="l_user" autocomplete="username" autocapitalize="none" spellcheck="false">
+        <label for="l_pw">Password</label>
+        <div class="pw"><input id="l_pw" type="password" autocomplete="current-password"><button type="button" data-show="l_pw">Show</button></div>
+        <label class="keep"><input type="checkbox" id="l_keep"> Keep me signed in for 30 days</label>
+        <button class="go" id="l_go" type="button">Sign in</button>
+      </div>
+
+      <div class="panel" id="pReq">
+        <label for="r_name" style="margin-top:4px">Full name</label><input id="r_name" autocomplete="name">
+        <div class="row2">
+          <div><label for="r_user">Username</label><input id="r_user" autocapitalize="none" spellcheck="false" autocomplete="off"></div>
+          <div><label for="r_dept">Department</label>
+            <select id="r_dept"><option value="">Select…</option><option>Commercial</option><option>SCM</option><option>Finance</option><option>C&amp;F</option><option>Customs</option><option>Factory</option><option>HR</option><option>IT</option><option>Management</option><option>Procurement</option><option>Accounts</option><option>Logistics</option><option>Transport</option></select></div>
+        </div>
+        <label for="r_email">Email</label><input id="r_email" type="email" autocomplete="email">
+        <label for="r_pw">Password</label><div class="pw"><input id="r_pw" type="password" autocomplete="new-password"><button type="button" data-show="r_pw">Show</button></div>
+        <label for="r_pw2">Confirm password</label><input id="r_pw2" type="password" autocomplete="new-password">
+        <div class="hint">Username: 3–30 letters, numbers, dot, dash or underscore. Password: at least 8 characters. An administrator must approve your request and give you a role before you can sign in.</div>
+        <button class="go" id="r_go" type="button">Request access</button>
+      </div>
+    </div>
+  </div>
+
+
+<script>
+(function(){
+  // ---- settings ------------------------------------------------------------------------------
+  var DASHBOARD_URL = 'index.html';   // <-- the file name of your dashboard page (the one that redirects here)
+  // The server address is set here (or by an administrator inside the dashboard, per browser).
+  var DEFAULT_URL = 'https://script.google.com/macros/s/AKfycbyNwnqIwc6aeI6SFOpDmCioC3stNQKTj3_p1stGUkDFCGZN726hc1-rVx9V52f9m_rX/exec';
+  var DEFAULT_KEY = '';   // intentionally empty: never put the secret key in this file
+
+  function $(id){ return document.getElementById(id); }
+  function ls(k, v){ try { if(v === undefined) return localStorage.getItem(k); if(v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch(e){} return null; }
+  function cfg(){ var u = ls('ccplcSyncUrl'); return { url: u || DEFAULT_URL, key: u ? (ls('ccplcSyncKey') || '') : DEFAULT_KEY }; }
+
+  function show(type, text){ var m = $('msg'); m.className = 'msg show ' + type; m.textContent = text; }
+  function hide(){ $('msg').className = 'msg'; }
+
+  // Apps Script cannot answer CORS preflight, so send plain text (same trick the dashboard uses).
+  function call(payload){
+    var c = cfg(), body = Object.assign({}, payload); if(c.key) body.secretKey = c.key;
+    var tries = 0;
+    function go(){
+      return fetch(c.url, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(body) })
+        .then(function(r){ return r.json(); })
+        .catch(function(err){
+          if(tries < 2){ var w = [1200, 2500][tries++]; return new Promise(function(r){ setTimeout(r, w); }).then(go); }
+          throw err;
+        });
+    }
+    return go();
+  }
+  var NO_SERVER = 'Could not reach the server. Check your connection. If it keeps happening, contact your administrator.';
+
+  // ---- UI wiring -----------------------------------------------------------------------------
+  document.querySelectorAll('[data-show]').forEach(function(b){
+    b.addEventListener('click', function(){ var i = $(b.getAttribute('data-show')); var h = i.type === 'password'; i.type = h ? 'text' : 'password'; b.textContent = h ? 'Hide' : 'Show'; });
+  });
+  document.querySelectorAll('#tabs button').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('#tabs button').forEach(function(x){ x.classList.toggle('on', x === b); });
+      $('pIn').classList.toggle('on', b.dataset.t === 'in'); $('pReq').classList.toggle('on', b.dataset.t === 'req'); hide();
+    });
+  });
+  ['l_user','l_pw'].forEach(function(id){ $(id).addEventListener('keydown', function(e){ if(e.key === 'Enter') $('l_go').click(); }); });
+
+  function dest(){ var next = new URLSearchParams(location.search).get('next'); return next && /^[\w./-]+\.html?$/.test(next) ? next : DASHBOARD_URL; }
+  function finish(res){
+    ls('ccplcAuthToken', res.token); ls('ccplcAuthUser', JSON.stringify(res.user || {}));
+    location.replace(dest());
+  }
+  function busy(btn, on, label){ btn.disabled = on; if(label) btn.textContent = on ? label[0] : label[1]; }
+
+  // ---- sign in -------------------------------------------------------------------------------
+  $('l_go').addEventListener('click', function(){
+    var u = $('l_user').value.trim(), p = $('l_pw').value;
+    if(!u || !p){ show('err', 'Enter your username and password.'); return; }
+    hide(); busy($('l_go'), true, ['Signing in…', 'Sign in']);
+    call({ action: 'authLogin', username: u, password: p, remember: $('l_keep').checked }).then(function(r){
+      if(r && r.success) finish(r); else { busy($('l_go'), false, ['', 'Sign in']); show('err', (r && r.error) || 'Sign in failed.'); }
+    }).catch(function(){ busy($('l_go'), false, ['', 'Sign in']); show('err', NO_SERVER); });
+  });
+
+  // ---- request access ------------------------------------------------------------------------
+  $('r_go').addEventListener('click', function(){
+    var d = { action: 'authSignup', name: $('r_name').value.trim(), username: $('r_user').value.trim(), dept: $('r_dept').value, email: $('r_email').value.trim(), password: $('r_pw').value };
+    if(!d.name || !d.username || !d.dept || !d.email || !d.password){ show('err', 'Please fill in every field.'); return; }
+    if(d.password !== $('r_pw2').value){ show('err', 'The two passwords do not match.'); return; }
+    hide(); busy($('r_go'), true, ['Sending…', 'Request access']);
+    call(d).then(function(r){
+      busy($('r_go'), false, ['', 'Request access']);
+      if(r && r.success){
+        show('ok', 'Request sent. An administrator will approve it and set your role — then you can sign in with your username.');
+        ['r_name','r_user','r_email','r_pw','r_pw2'].forEach(function(i){ $(i).value = ''; }); $('r_dept').value = '';
+      } else show('err', (r && r.error) || 'Could not send the request.');
+    }).catch(function(){ busy($('r_go'), false, ['', 'Request access']); show('err', NO_SERVER); });
+  });
+
+  // ---- first-time administrator setup ---------------------------------------------------------
+  $('s_go').addEventListener('click', function(){
+    var d = { action: 'authSetup', name: $('s_name').value.trim(), username: $('s_user').value.trim(), email: $('s_email').value.trim(), password: $('s_pw').value };
+    if(!d.name || !d.username || !d.email || !d.password){ show('err', 'Please fill in every field.'); return; }
+    hide(); busy($('s_go'), true, ['Creating…', 'Create administrator']);
+    call(d).then(function(r){
+      if(r && r.success) finish(r); else { busy($('s_go'), false, ['', 'Create administrator']); show('err', (r && r.error) || 'Could not create the administrator.'); }
+    }).catch(function(){ busy($('s_go'), false, ['', 'Create administrator']); show('err', NO_SERVER); });
+  });
+
+  // ---- start: expired notice, already signed in?, or first-time setup? -------------------------
+  if(new URLSearchParams(location.search).get('expired')) show('warn', 'Your session has ended. Please sign in again.');
+  call({ action: 'authStatus', token: ls('ccplcAuthToken') || '' }).then(function(r){
+    if(!r || !r.success) return;
+    if(r.enabled && r.user){ location.replace(dest()); return; }
+    if(!r.enabled){ $('pMain').style.display = 'none'; $('pSetup').classList.add('on'); }
+  }).catch(function(){ show('err', NO_SERVER); });
+})();
+</script>
+</body>
+</html>
