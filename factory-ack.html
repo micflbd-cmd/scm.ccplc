@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a1e42">
+<title>Factory VAT Acknowledgement — Crown Cement</title>
+<script src="app-notify.js" defer></script>
+<style>
+:root{--navy:#0a1e42;--blue:#1d63d8;--bg:#eef3fb;--border:#dfe4ec;--text:#1b2434;--muted:#6b7686;--green:#1a8f4c;--amber:#c27b00;--red:#d64545}
+*{box-sizing:border-box}body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:13.5px}
+header{background:var(--navy);color:#fff;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+header h1{margin:0;font-size:17px}header small{display:block;color:#9fe0b0;font-size:12px;margin-top:2px}header .who{font-size:12.5px;text-align:right}header a{color:#9fc4ff}
+main{max-width:1250px;margin:0 auto;padding:16px}
+.card{background:#fff;border:1px solid var(--border);border-radius:8px;margin-bottom:16px;overflow:hidden}
+.card>h2{margin:0;padding:10px 14px;font-size:14px;background:#e3eefc;color:var(--navy)}.card .body{padding:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:12px}
+label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:4px}label b{color:var(--red)}
+input,select,textarea{width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font:inherit;background:#fff}
+input[readonly]{background:#f5f7fb}input:disabled,textarea:disabled{background:#f1f3f7;color:#9aa4b5}.hintl{font-size:11px;color:var(--muted);margin-top:3px}
+.btn{padding:9px 16px;border-radius:6px;border:1px solid var(--blue);background:#fff;color:var(--blue);cursor:pointer;font:inherit;font-weight:600}.btn.solid{background:var(--blue);color:#fff}.btn:disabled{opacity:.5;cursor:default}
+table{width:100%;border-collapse:collapse;font-size:12.5px}th,td{padding:8px;border-bottom:1px solid var(--border);text-align:left}th{background:#f3f6fb;color:var(--muted);font-size:11.5px}
+tr.row{cursor:pointer}tr.row:hover{background:#f3f7ff}tr.sel{background:#e6f0ff}.tw{overflow-x:auto}
+.badge{display:inline-block;padding:2px 9px;border-radius:5px;font-size:11.5px;font-weight:600}.b-ok{background:#e1f6e8;color:var(--green)}.b-wait{background:#fff1d6;color:var(--amber)}.b-new{background:#fde8e8;color:var(--red)}
+.tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center}.tab{padding:9px 18px;border:1px solid var(--border);border-radius:6px;background:#fff;cursor:pointer;font-weight:600;color:var(--text)}.tab.on{background:var(--blue);color:#fff;border-color:var(--blue)}.tab .badge{margin-left:6px;font-size:11px;padding:1px 7px}
+.notice{background:#fff6dc;border:1px solid #f0cf7a;border-radius:8px;padding:11px 14px;margin-bottom:14px;line-height:1.7}.notice a{color:var(--blue);font-weight:600;text-decoration:underline;cursor:pointer}
+.pager{display:flex;gap:6px;justify-content:space-between;align-items:center;margin-top:10px;flex-wrap:wrap}.pager .pg{display:flex;gap:4px}.pager button{padding:4px 10px;border:1px solid var(--border);background:#fff;border-radius:5px;cursor:pointer}.pager button.on{background:var(--blue);color:#fff;border-color:var(--blue)}.pager button:disabled{opacity:.4;cursor:default}.pager select{width:auto}
+.lk a{display:block;color:var(--blue);word-break:break-all;margin-top:2px}.msg{min-height:18px;margin-top:8px;font-size:12.5px}.msg.err{color:var(--red)}.msg.ok{color:var(--green)}
+.empty{text-align:center;color:var(--muted);padding:16px}.hide{display:none}
+@media(max-width:700px){body{font-size:14px}main{padding:10px}.tabs{flex-wrap:nowrap;overflow-x:auto}.tab{white-space:nowrap;flex:none}.btn{padding:11px 16px}}
+</style></head><body>
+<header><div><h1>Factory VAT Acknowledgement <span id="unitName" style="font-weight:400;color:#9fe0b0"></span></h1><small>Acknowledge the Insurance Cover Notes and Bills of Entry sent by the Commercial Dept.</small></div>
+<div class="who"><b id="who"></b><br><a href="#" id="signOut">Sign out</a></div></header>
+<div id="loginBox" style="display:none;max-width:380px;margin:40px auto;padding:0 16px"><div class="card"><h2>Sign in</h2><div class="body">
+ <label>Login ID</label><input id="lg_id" autocomplete="username" autocapitalize="none" spellcheck="false"><label style="margin-top:10px">PIN</label><input id="lg_pin" type="password" autocomplete="current-password">
+ <label style="display:flex;gap:8px;align-items:center;margin-top:10px"><input type="checkbox" id="lg_keep" style="width:auto"> Keep me signed in on this device</label>
+ <div style="margin-top:14px"><button class="btn solid" id="lg_go" style="width:100%">Sign in</button></div><div class="msg" id="lg_msg"></div>
+ <div class="hintl">Your Login ID and PIN are given by the Commercial Dept. You see only the entries sent for your Unit.</div></div></div></div>
+<main id="appMain" style="display:none">
+<div id="notice"></div>
+<div class="tabs"><button class="tab on" data-t="ins">Acknowledgement</button><button class="tab" data-t="be">Bill of Entry</button><button class="tab" data-t="al">🔔 Alerts <span class="badge b-new" id="alN" style="display:none">0</span></button>
+<span style="flex:1"></span><span style="color:var(--muted)" id="upd"></span><button class="btn" id="refresh">↻ Refresh</button></div>
+
+<!-- ===== Insurance Cover Note acknowledgement ===== -->
+<section id="p_ins">
+<div class="card"><h2>Insurance Cover Note — Acknowledgement</h2><div class="body">
+ <div class="grid"><div><label>LC No. <b>*</b></label><input id="i_lc" list="i_lcl" placeholder="Type a LC No. sent to you" autocomplete="off"><datalist id="i_lcl"></datalist></div>
+  <div><label>PI No.</label><input id="i_pi" readonly></div><div><label>Insurance Company</label><input id="i_co" readonly></div>
+  <div><label>Insurance Cover Note No.</label><input id="i_no" readonly></div><div><label>Cover Note Date</label><input id="i_dt" readonly></div>
+  <div><label>Item / Commodity</label><input id="i_item" readonly></div><div><label>Supplier</label><input id="i_sup" readonly></div></div>
+ <div class="lk" id="i_links"></div>
+ <div class="grid" style="margin-top:12px"><div><label>Sending Date</label><input id="i_snd" readonly></div><div><label>Acknowledged By <b>*</b></label><input id="i_by" placeholder="Enter Name"></div>
+  <div><label>Acknowledgement Date <b>*</b></label><input id="i_ad" type="date"></div></div>
+ <label>Remarks</label><textarea id="i_rm" rows="2"></textarea>
+ <div style="margin-top:12px;display:flex;gap:8px"><button class="btn solid" id="i_save">Save Acknowledgement</button><button class="btn" id="i_reset">Reset</button></div><div class="msg" id="i_msg"></div>
+</div></div>
+<div class="card"><h2>Insurance Cover Notes sent to you</h2><div class="tw"><table><thead><tr><th>Status</th><th>Sent</th><th>LC No.</th><th>PI No.</th><th>Insurance Company</th><th>Cover Note No.</th><th>Cover Note Date</th><th></th></tr></thead><tbody id="i_list"></tbody></table></div></div>
+</section>
+
+<!-- ===== Bill of Entry acknowledgement ===== -->
+<section id="p_be" class="hide">
+<div class="card"><h2>Bill of Entry — Acknowledgement</h2><div class="body">
+ <div class="grid"><div><label>LC No. <b>*</b></label><input id="b_lc" list="b_lcl" placeholder="Type a LC No. sent to you" autocomplete="off"><datalist id="b_lcl"></datalist></div>
+  <div><label>PI No.</label><input id="b_pi" readonly></div><div><label>Item / Commodity</label><input id="b_item" readonly></div><div><label>Supplier</label><input id="b_sup" readonly></div></div>
+ <label>Shipments Under This LC — Click a Row to Select</label>
+ <div class="tw"><table><thead><tr><th>#</th><th>BL No.</th><th class="r">Qty</th><th>B/E No.</th><th>B/E Date</th><th>Status</th><th>Action</th></tr></thead><tbody id="b_ship"></tbody></table></div>
+ <div class="pager"><span id="b_show">Showing 0 of 0 entries</span><span>Rows per page <select id="b_rows"><option>5</option><option selected>10</option><option>25</option></select></span><span class="pg" id="b_pg"></span></div>
+ <div class="hintl" id="b_hint" style="margin:10px 0">Select a shipment row above to enable these fields.</div>
+ <div class="lk" id="b_links"></div>
+ <div class="grid"><div><label>B/E No.</label><input id="b_no" readonly placeholder="Enter B/E No."></div><div><label>B/E Date</label><input id="b_dt" readonly></div><div><label>Bill of Entry Send to Factory Date</label><input id="b_sd" readonly></div></div>
+ <div class="grid"><div><label>Received Date</label><input id="b_rcv" type="date" disabled></div><div><label>Acknowledged By <b>*</b></label><input id="b_by" placeholder="Enter Name" disabled></div><div><label>Acknowledgement Date <b>*</b></label><input id="b_ad" type="date" disabled></div></div>
+ <label>Remarks</label><textarea id="b_rm" rows="2" disabled></textarea>
+ <div style="margin-top:12px;display:flex;gap:8px"><button class="btn solid" id="b_save" disabled>Save Acknowledgement</button><button class="btn" id="b_reset">Reset</button></div><div class="msg" id="b_msg"></div>
+</div></div>
+</section>
+
+<!-- ===== Alerts ===== -->
+<section id="p_al" class="hide">
+<div class="card"><h2>🔔 Alerts — messages from Crown Cement <span style="float:right"><button class="btn" id="al_en" style="padding:4px 10px">Enable phone alerts</button> <button class="btn" id="al_all" style="padding:4px 10px">Mark all as seen</button></span></h2>
+<div class="tw"><table><thead><tr><th>Status</th><th>Received</th><th>From</th><th>LC No.</th><th>Details</th><th></th></tr></thead><tbody id="al_list"></tbody></table></div></div>
+</section>
+</main>
+<script>
+(function(){
+  'use strict';
+  var URL_ = 'https://script.google.com/macros/s/AKfycbzQkD0BVuwPb4e3VAvWhqB2tfYaTPvRs_Kt9FEXcbji_0EVPxQwUpEOCGDNM4JCKtD1/exec';
+  function ls(k, v){ try { if(v === undefined) return localStorage.getItem(k); if(v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch(e){} return null; }
+  function $(id){ return document.getElementById(id); }
+  function esc(x){ return String(x == null ? '' : x).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+  var su = ls('ccplcSyncUrl'); if(su && ls('ccplcSyncUrlV') === '20261026') URL_ = su;
+  var cred = null; try { cred = JSON.parse(localStorage.getItem('facCred') || sessionStorage.getItem('facCred') || 'null'); } catch(e){}
+  var unit = '', user = {};   // user.username is the Login ID
+  function signOut(){ try { localStorage.removeItem('facCred'); sessionStorage.removeItem('facCred'); } catch(e){} location.reload(); }
+  $('signOut').onclick = function(e){ e.preventDefault(); signOut(); };
+  function call(action, p){
+    if(!cred) return Promise.reject(new Error('Please sign in'));
+    var body = Object.assign({ action: action, loginId: cred.loginId, pin: cred.pin }, p || {});
+    return fetch(URL_, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(body) }).then(function(r){ return r.json(); }).then(function(r){
+      if(r && !r.success && /Invalid Login ID|Enter your Login ID|Too many failed/.test(r.error || '')){ showLogin(r.error || ''); throw new Error(r.error); } return r; });
+  }
+  function showLogin(msg){ $('loginBox').style.display = ''; $('appMain').style.display = 'none'; $('lg_msg').className = 'msg err'; $('lg_msg').textContent = msg || ''; }
+  $('lg_go').onclick = function(){
+    var id = $('lg_id').value.trim(), pin = $('lg_pin').value.trim(); if(!id || !pin){ $('lg_msg').className = 'msg err'; $('lg_msg').textContent = 'Enter your Login ID and PIN.'; return; }
+    cred = { loginId: id, pin: pin }; var b = $('lg_go'); b.disabled = true; $('lg_msg').className = 'msg'; $('lg_msg').textContent = 'Signing in …';
+    call('facLogin').then(function(r){
+      if(r && r.success){ try { ($('lg_keep').checked ? localStorage : sessionStorage).setItem('facCred', JSON.stringify(cred)); } catch(e){} start(r.unit); }
+      else { $('lg_msg').className = 'msg err'; $('lg_msg').textContent = (r && r.error) || 'Sign in failed'; }
+    }).catch(function(e){ $('lg_msg').className = 'msg err'; $('lg_msg').textContent = e.message; }).then(function(){ b.disabled = false; });
+  };
+  ['lg_id', 'lg_pin'].forEach(function(i){ $(i).addEventListener('keydown', function(e){ if(e.key === 'Enter') $('lg_go').click(); }); });
+  var S = { ins: [], be: [], tab: 'ins', selBl: '', bePage: 1 }, SEEN = 'facSeen:';
+  function seen(){ try { return JSON.parse(ls(SEEN) || '{}'); } catch(e){ return {}; } }
+  function mark(ids){ var m = seen(); ids.forEach(function(i){ m[i] = 1; }); var k = Object.keys(m); if(k.length > 800) k.slice(0, k.length - 600).forEach(function(x){ delete m[x]; }); ls(SEEN, JSON.stringify(m)); render(true); }
+  function all(){ return S.ins.map(function(x){ x.kind = 'ins'; return x; }).concat(S.be.map(function(x){ x.kind = 'be'; return x; })).sort(function(a, b){ return a.sentAt < b.sentAt ? 1 : -1; }); }
+  function iso(v){ return /^\d{4}-\d{2}-\d{2}/.test(String(v || '')) ? String(v).slice(0, 10) : ''; }
+  function today(){ var d = new Date(); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+  function st(x){ return x.status === 'Acknowledged' ? '<span class="badge b-ok">Acknowledged</span>' : '<span class="badge b-wait">Pending</span>'; }
+  function flag(x){ return seen()[x.id] ? '' : ' <span class="badge b-new">NEW</span>'; }
+  function lks(el, l){ el.innerHTML = (l && l.length) ? '<label style="margin-top:8px">Documents (Google Drive)</label>' + l.map(function(u, i){ return '<a href="' + esc(u) + '" target="_blank" rel="noopener">📎 File ' + (i + 1) + '</a>'; }).join('') : ''; }
+  function say(id, t, c){ var m = $(id); m.className = 'msg ' + (c || ''); m.textContent = t; }
+
+  // ---------- notification banner + alerts ----------
+  function describe(x){ return x.kind === 'ins' ? 'Insurance Cover Note ACK Entry' + (x.coverNoteNo ? ' — Cover Note ' + x.coverNoteNo : '') : 'Bill of Entry ACK Entry — BL ' + x.blNo + (x.beNo ? ' · B/E ' + x.beNo : ''); }
+  function renderNotice(){
+    var n = all().filter(function(x){ return !seen()[x.id]; }), box = $('notice');
+    if(!n.length){ box.innerHTML = ''; return; }
+    box.innerHTML = '<div class="notice">📥 <b>' + n.length + ' new document set' + (n.length > 1 ? 's' : '') + '</b> sent to you from <b>Commercial Dept.</b> (Insurance Cover Note ACK Entry / Bill of Entry ACK Entry) for acknowledgement: ' +
+      n.slice(0, 6).map(function(x){ return '<a data-open="' + esc(x.id) + '">LC ' + esc(x.lcNo) + ' / ' + esc(x.kind === 'ins' ? 'Insurance Cover Note' : 'BL ' + x.blNo) + '</a>'; }).join(' · ') + (n.length > 6 ? ' · +' + (n.length - 6) + ' more' : '') + ' <button class="btn" id="nSeen" style="padding:4px 10px">Mark as seen</button></div>';
+    $('nSeen').onclick = function(){ mark(n.map(function(x){ return x.id; })); };
+  }
+  function renderAlerts(){
+    var l = all(), n = l.filter(function(x){ return !seen()[x.id]; }).length, b = $('alN'); b.textContent = n; b.style.display = n ? '' : 'none';
+    $('al_list').innerHTML = l.length ? l.map(function(x){ return '<tr class="row" data-open="' + esc(x.id) + '"><td>' + (seen()[x.id] ? '<span class="badge b-ok">Seen</span>' : '<span class="badge b-new">NEW</span>') + '</td><td>' + esc(x.sentAt) + '</td><td>Commercial Dept. — ' + (x.kind === 'ins' ? 'Insurance Cover Note ACK Entry' : 'Bill of Entry ACK Entry') + '</td><td>' + esc(x.lcNo) + '</td><td>' + esc(describe(x)) + ' ' + st(x) + '</td><td><a style="color:var(--blue);font-weight:600">Open ›</a></td></tr>'; }).join('') : '<tr><td colspan="6" class="empty">Nothing has been sent to you yet.</td></tr>';
+    if(window.AppNotify){ try { AppNotify.sync(l.map(function(x){ return { id: x.id, title: (x.kind === 'ins' ? 'Insurance Cover Note' : 'Bill of Entry') + ' sent — LC ' + x.lcNo, body: describe(x) }; })); } catch(e){} }
+  }
+
+  // ---------- insurance ----------
+  function insFill(x){
+    ['pi', 'co', 'no', 'dt', 'item', 'sup'].forEach(function(k){ $('i_' + k).value = ''; });
+    if(x){ $('i_pi').value = x.piNo; $('i_co').value = x.insCompany; $('i_no').value = x.coverNoteNo; $('i_dt').value = x.coverNoteDate; $('i_item').value = x.item; $('i_sup').value = x.supplier; }
+    lks($('i_links'), x && x.links); $('i_snd').value = x ? x.sendDate : ''; var done = x && x.status === 'Acknowledged'; $('i_by').value = x ? (done ? x.ackBy : (ls('facName') || '')) : ''; $('i_ad').value = x ? (done ? iso(x.ackDate) : today()) : ''; $('i_rm').value = x ? x.remarks : '';
+  }
+  function insFind(){ var v = $('i_lc').value.trim().toLowerCase(); return S.ins.filter(function(x){ return x.lcNo.toLowerCase() === v; })[0]; }
+  function renderIns(){
+    $('i_lcl').innerHTML = S.ins.map(function(x){ return '<option value="' + esc(x.lcNo) + '">'; }).join('');
+    $('i_list').innerHTML = S.ins.length ? S.ins.map(function(x){ return '<tr class="row" data-open="' + esc(x.id) + '"><td>' + st(x) + flag(x) + '</td><td>' + esc(x.sentAt) + '</td><td>' + esc(x.lcNo) + '</td><td>' + esc(x.piNo) + '</td><td>' + esc(x.insCompany) + '</td><td>' + esc(x.coverNoteNo) + '</td><td>' + esc(x.coverNoteDate) + '</td><td><a style="color:var(--blue);font-weight:600">Open ›</a></td></tr>'; }).join('') : '<tr><td colspan="8" class="empty">No Insurance Cover Note has been sent to you yet.</td></tr>';
+  }
+  $('i_lc').addEventListener('input', function(){ var x = insFind(); if(x) { insFill(x); mark([x.id]); } else if(!this.value) insFill(null); });
+  $('i_reset').onclick = function(){ $('i_lc').value = ''; insFill(null); say('i_msg', ''); };
+  $('i_save').onclick = function(){
+    var x = insFind(); if(!x){ say('i_msg', 'Type a LC No. that was sent to you.', 'err'); return; }
+    if(!$('i_by').value.trim() || !$('i_ad').value){ say('i_msg', 'Acknowledged By and Acknowledgement Date are required.', 'err'); return; }
+    var b = $('i_save'); b.disabled = true; say('i_msg', 'Saving …', 'ok');
+    call('facAckSave', { kind: 'ins', lcNo: x.lcNo, ackBy: $('i_by').value.trim(), ackDate: $('i_ad').value, remarks: $('i_rm').value.trim() }).then(function(r){
+      if(r && r.success){ ls('facName', $('i_by').value.trim()); say('i_msg', '✓ Acknowledgement saved — Crown Cement can see it now.', 'ok'); return load(); } say('i_msg', '✗ ' + ((r && r.error) || 'Could not save'), 'err');
+    }).catch(function(e){ say('i_msg', '✗ ' + e.message, 'err'); }).then(function(){ b.disabled = false; });
+  };
+
+  // ---------- bill of entry ----------
+  function beRows(){ var v = $('b_lc').value.trim().toLowerCase(); return v ? S.be.filter(function(x){ return x.lcNo.toLowerCase() === v; }).sort(function(a, b){ return a.blNo < b.blNo ? -1 : 1; }) : []; }
+  function beFields(on){ ['b_rcv', 'b_by', 'b_ad', 'b_rm', 'b_save'].forEach(function(i){ $(i).disabled = !on; }); $('b_hint').style.display = on ? 'none' : ''; }
+  function beSel(){ return beRows().filter(function(x){ return x.blNo === S.selBl; })[0]; }
+  function beFill(){
+    var rows = beRows(), x = beSel(), f = rows[0];
+    $('b_pi').value = f ? f.piNo : ''; $('b_item').value = f ? f.item : ''; $('b_sup').value = f ? f.supplier : '';
+    beFields(!!x); $('b_no').value = x ? x.beNo : ''; $('b_dt').value = x ? x.beDate : ''; $('b_sd').value = x ? x.sentDate : '';
+    $('b_rcv').value = x ? (iso(x.receivedDate) || today()) : ''; var bd = x && x.status === 'Acknowledged'; $('b_by').value = x ? (bd ? x.ackBy : (ls('facName') || '')) : ''; $('b_ad').value = x ? (bd ? iso(x.ackDate) : today()) : ''; $('b_rm').value = x ? x.remarks : '';
+    lks($('b_links'), x && x.links);
+  }
+  function renderBe(keep){
+    $('b_lcl').innerHTML = Object.keys(S.be.reduce(function(o, x){ o[x.lcNo] = 1; return o; }, {})).map(function(l){ return '<option value="' + esc(l) + '">'; }).join('');
+    var rows = beRows(), per = +$('b_rows').value, pages = Math.max(1, Math.ceil(rows.length / per)); if(S.bePage > pages) S.bePage = pages;
+    var from = (S.bePage - 1) * per, part = rows.slice(from, from + per);
+    $('b_ship').innerHTML = part.length ? part.map(function(x, i){ return '<tr class="row' + (x.blNo === S.selBl ? ' sel' : '') + '" data-bl="' + esc(x.blNo) + '"><td>' + (from + i + 1) + '</td><td>' + esc(x.blNo) + flag(x) + '</td><td class="r">' + esc(x.qty) + '</td><td>' + esc(x.beNo || '—') + '</td><td>' + esc(x.beDate || '—') + '</td><td>' + st(x) + '</td><td><a style="color:var(--blue);font-weight:600">Select</a></td></tr>'; }).join('') : '<tr><td colspan="7" class="empty">' + ($('b_lc').value.trim() ? 'No Bill of Entry has been sent to you for this LC.' : 'Type an LC No. above to load its shipments.') + '</td></tr>';
+    $('b_show').textContent = 'Showing ' + (rows.length ? from + 1 : 0) + ' to ' + (from + part.length) + ' of ' + rows.length + ' entries';
+    var pg = '<button data-p="1"' + (S.bePage === 1 ? ' disabled' : '') + '>«</button><button data-p="' + (S.bePage - 1) + '"' + (S.bePage === 1 ? ' disabled' : '') + '>‹</button><button class="on">' + S.bePage + '</button><button data-p="' + (S.bePage + 1) + '"' + (S.bePage === pages ? ' disabled' : '') + '>›</button><button data-p="' + pages + '"' + (S.bePage === pages ? ' disabled' : '') + '>»</button>';
+    $('b_pg').innerHTML = pg; if(!keep) beFill();
+  }
+  $('b_pg').addEventListener('click', function(e){ var p = e.target.getAttribute && e.target.getAttribute('data-p'); if(p){ S.bePage = +p; renderBe(); } });
+  $('b_rows').onchange = function(){ S.bePage = 1; renderBe(); };
+  $('b_lc').addEventListener('input', function(){ S.selBl = ''; S.bePage = 1; var r = beRows(); if(r.length === 1) S.selBl = r[0].blNo; renderBe(); if(r.length) mark(r.map(function(x){ return x.id; })); });
+  $('b_ship').addEventListener('click', function(e){ var tr = e.target.closest('tr[data-bl]'); if(tr){ S.selBl = tr.getAttribute('data-bl'); renderBe(); } });
+  $('b_reset').onclick = function(){ $('b_lc').value = ''; S.selBl = ''; S.bePage = 1; renderBe(); say('b_msg', ''); };
+  $('b_save').onclick = function(){
+    var x = beSel(); if(!x){ say('b_msg', 'Select a shipment row first.', 'err'); return; }
+    if(!$('b_by').value.trim() || !$('b_ad').value){ say('b_msg', 'Acknowledged By and Acknowledgement Date are required.', 'err'); return; }
+    var b = $('b_save'); b.disabled = true; say('b_msg', 'Saving …', 'ok');
+    call('facAckSave', { kind: 'be', lcNo: x.lcNo, blNo: x.blNo, receivedDate: $('b_rcv').value, ackBy: $('b_by').value.trim(), ackDate: $('b_ad').value, remarks: $('b_rm').value.trim() }).then(function(r){
+      if(r && r.success){ ls('facName', $('b_by').value.trim()); say('b_msg', '✓ Acknowledgement saved — Crown Cement can see it now.', 'ok'); return load(); } say('b_msg', '✗ ' + ((r && r.error) || 'Could not save'), 'err');
+    }).catch(function(e){ say('b_msg', '✗ ' + e.message, 'err'); }).then(function(){ b.disabled = !beSel(); });
+  };
+
+  // ---------- tabs, open, refresh ----------
+  function tab(t){ S.tab = t; ['ins', 'be', 'al'].forEach(function(k){ $('p_' + k).classList.toggle('hide', k !== t); }); document.querySelectorAll('.tab').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-t') === t); }); }
+  document.querySelectorAll('.tab').forEach(function(b){ b.onclick = function(){ tab(b.getAttribute('data-t')); }; });
+  function open(id){
+    var x = all().filter(function(y){ return y.id === id; })[0]; if(!x) return; mark([x.id]);
+    if(x.kind === 'ins'){ tab('ins'); $('i_lc').value = x.lcNo; insFill(insFind()); } else { tab('be'); $('b_lc').value = x.lcNo; S.selBl = x.blNo; S.bePage = 1; renderBe(); }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  document.addEventListener('click', function(e){ var o = e.target.closest && e.target.closest('[data-open]'); if(o) open(o.getAttribute('data-open')); });
+  $('al_all').onclick = function(){ mark(all().map(function(x){ return x.id; })); };
+  $('al_en').onclick = function(){ if(window.AppNotify) AppNotify.enable().then(function(s){ $('al_en').textContent = s === 'granted' ? 'Phone alerts on' : 'Phone alerts: ' + s; }); };
+  if(!('Notification' in window)) $('al_en').style.display = 'none';
+  function render(keep){ renderNotice(); renderAlerts(); renderIns(); renderBe(keep); }   // keep = do not overwrite what is typed in the forms
+  function load(){
+    return call('facPortalData').then(function(r){
+      if(!(r && r.success)){ $('upd').textContent = '⚠ ' + ((r && r.error) || 'Could not load'); return; }
+      S.ins = r.ins || []; S.be = r.be || []; var ed = document.activeElement && /INPUT|TEXTAREA/.test(document.activeElement.tagName) && document.activeElement.id !== 'i_lc' && document.activeElement.id !== 'b_lc'; render(!!ed); var d = new Date(); $('upd').textContent = 'Updated ' + d.toTimeString().slice(0, 8);
+    }).catch(function(e){ $('upd').textContent = '⚠ ' + e.message; });
+  }
+  $('refresh').onclick = load;
+  window.addEventListener('load', function(){ if(window.AppNotify){ try { AppNotify.init({ app: 'fac', user: function(){ return user.username || ''; }, onOpen: function(i){ open(i.id); } }); } catch(e){} renderAlerts(); } });
+  function start(u){
+    unit = u; user = { username: cred.loginId }; SEEN = 'facSeen:' + cred.loginId.toLowerCase();
+    $('unitName').textContent = '— ' + u; $('who').textContent = u + ' · ' + cred.loginId; document.title = 'Factory VAT Acknowledgement — ' + u;
+    $('loginBox').style.display = 'none'; $('appMain').style.display = ''; beFields(false); load();
+  }
+  setInterval(function(){ if(!document.hidden && cred && $('appMain').style.display !== 'none') load(); }, 120000);
+  if(cred){ call('facLogin').then(function(r){ if(r && r.success) start(r.unit); else showLogin(); }).catch(function(){ showLogin(); }); } else showLogin();
+})();
+</script>
+</body></html>

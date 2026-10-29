@@ -492,6 +492,16 @@
 .tbl-pg{display:flex;gap:6px;margin-left:8px}
 .tbl-pg button{min-width:34px;height:32px;padding:0 8px;border:1px solid #e1e5ee;background:#fff;border-radius:8px;color:#64748b;cursor:pointer;font-weight:700;font-size:13px}
 .tbl-pg button.on{background:#2563eb;border-color:#2563eb;color:#fff}.tbl-pg button:disabled{opacity:.45;cursor:default}
+.bot-fab{position:fixed;right:18px;bottom:18px;width:60px;height:60px;border-radius:50%;background:#7c3aed;border:0;cursor:pointer;display:grid;place-items:center;box-shadow:0 6px 20px rgba(76,29,149,.45);z-index:9000;padding:0}.bot-fab svg{width:44px;height:44px}
+.bot-panel{position:fixed;right:18px;bottom:90px;width:390px;max-width:calc(100vw - 20px);height:min(640px,calc(100vh - 110px));background:linear-gradient(180deg,#fff 0%,#f2edff 100%);border-radius:20px;box-shadow:0 12px 40px rgba(30,20,70,.35);z-index:9001;display:none;flex-direction:column;overflow:hidden;font-size:14px}.bot-panel.on{display:flex}
+.bot-h{display:flex;align-items:center;gap:10px;padding:12px 14px;background:#fff;border-bottom:1px solid #eee6ff}.bot-h svg{width:34px;height:34px}.bot-h b{font-size:16px;color:#1f1b3a}.bot-beta{background:#7c3aed;color:#fff;border-radius:6px;font-size:11px;padding:2px 8px;font-weight:700}.bot-on{margin-left:auto;color:#12a150;font-weight:700;font-size:12.5px}.bot-h button{border:0;background:transparent;cursor:pointer;font-size:18px;color:#6b6790;padding:2px 6px;min-height:0!important}
+.bot-m{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}.bot-b{max-width:92%;padding:10px 13px;border-radius:14px;line-height:1.45;word-wrap:break-word}.bot-b.me{align-self:flex-end;background:#7c3aed;color:#fff;border-bottom-right-radius:4px}.bot-b.ai{align-self:flex-start;background:#fff;border:1px solid #e6dfff;color:#1f1b3a;border-bottom-left-radius:4px;max-width:100%}
+.bot-q{display:block;width:100%;text-align:left;background:#fff;border:1px solid #e0d7ff;border-radius:12px;padding:11px 14px;font:inherit;color:#1f1b3a;cursor:pointer}.bot-q:hover{background:#f6f2ff}.bot-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.bot-chips .bot-q{width:auto;padding:5px 11px;font-size:12.5px;border-radius:99px;color:#5b21b6}
+.bot-t{border-collapse:collapse;width:100%;font-size:12px;margin-top:6px}.bot-t th,.bot-t td{padding:4px 6px;border-bottom:1px solid #f0ecfb;text-align:left;vertical-align:top}.bot-t th{color:#6b6790;font-size:11px;background:#faf8ff}.bot-tw{overflow-x:auto}.bot-kv{display:flex;justify-content:space-between;gap:10px;padding:3px 0;border-bottom:1px dashed #eee9fb;font-size:13px}.bot-kv span{color:#6b6790}.bot-kv b{text-align:right}.bot-h3{font-weight:800;color:#4c1d95;margin:6px 0 2px}
+.bot-lc{color:#6d28d9;font-weight:700;cursor:pointer;text-decoration:underline}.bot-go{display:inline-block;margin-top:8px;background:#7c3aed;color:#fff;border:0;border-radius:8px;padding:7px 12px;cursor:pointer;font:600 12.5px inherit}.bot-red{color:#dc2626;font-weight:700}.bot-grn{color:#12a150;font-weight:700}.bot-amb{color:#c27b00;font-weight:700}
+.bot-note{font-size:11.5px;color:#7b7a93;text-align:center;padding:6px 14px}.bot-f{display:flex;gap:8px;padding:10px 12px 12px}.bot-f input{flex:1;border:1.5px solid #7c3aed;border-radius:12px;padding:11px 12px;font:inherit;min-width:0;outline:none;background:#fff}.bot-f button{width:46px;border:0;border-radius:12px;cursor:pointer;font-size:19px;min-height:0!important;color:#fff;background:#7c3aed}.bot-f #bot_mic{background:#fff;color:#1f1b3a;border:1px solid #e0d7ff}.bot-f #bot_mic.rec{background:#fde8e8;border-color:#dc2626}
+.bot-dots span{display:inline-block;width:7px;height:7px;border-radius:50%;background:#a78bfa;margin-right:4px;animation:botd 1s infinite}.bot-dots span:nth-child(2){animation-delay:.2s}.bot-dots span:nth-child(3){animation-delay:.4s}@keyframes botd{0%,80%,100%{opacity:.25}40%{opacity:1}}
+@media print{.bot-fab,.bot-panel{display:none!important}}@media(max-width:520px){.bot-panel{right:10px;left:10px;width:auto;bottom:84px}.bot-fab{right:12px;bottom:12px}}
 .hmx-r5{margin-bottom:14px}
 .dc-top{display:grid;grid-template-columns:minmax(0,2.4fr) minmax(0,1fr);gap:14px;margin-bottom:14px}@media(max-width:900px){.dc-top{grid-template-columns:1fr}}
 .dc-card{background:#fff;border:1px solid #dbe5f6;border-radius:14px;padding:16px;min-width:0}.dc-card h3{margin:0 0 4px;font-size:18px;color:#0e1f4d}.dc-card p{margin:0;color:#44506b;font-size:13px}
@@ -1724,16 +1734,14 @@ select.dc-st{border:0;border-radius:99px;padding:5px 10px;font:700 12px inherit;
                 <div class="grid cols-2">
                   <div class="f"><label>LC No. <span class="req">*</span></label><input id="ackIns_lcNo" placeholder="Type a saved LC No."><div class="lookup-hint" id="ackInsLookupHint"></div></div>
                   <div class="f"><label>PI No.</label><input id="ackIns_piNo" readonly placeholder="Loads from LC No."></div>
-                  <div class="f"><label>Shipment No. <span style="font-weight:400;color:var(--muted);">(optional)</span></label>
-                    <select id="ackIns_shipmentNo"><option value="">-- Select Shipment No. (optional) --</option></select>
-                  </div>
+                  <div class="f"><label>Unit <span class="req">*</span></label><input id="ackIns_unit" readonly placeholder="Loads from LC No."></div>
                   <div class="f"><label>Item / Commodity</label><input id="ackIns_commodity" readonly placeholder="Loads from LC No."></div>
                   <div class="f"><label>Insurance Company</label><input id="ackIns_supplier" readonly placeholder="Loads from LC No."></div>
                   <div class="f"><label>Insurance Cover Note No.</label><input id="ackIns_coverNoteNo" placeholder="Loads from LC No. — edit if needed"></div>
                   <div class="f"><label>Cover Note Date</label><input type="date" id="ackIns_coverNoteDate"></div>
-                  <div class="f"><label>Received Date</label><input type="date" id="ackIns_receivedDate"></div>
+                  <div class="f"><label>Sending Date</label><input type="date" id="ackIns_receivedDate"></div>
                   <div class="f"><label>Acknowledged By</label><input id="ackIns_ackBy" placeholder="Enter Name"></div>
-                  <div class="f"><label>Acknowledgement Date</label><input type="date" id="ackIns_ackDate"></div>
+                  <div class="f" style="display:none;"><label>Acknowledgement Date</label><input type="date" id="ackIns_ackDate"></div>
                   <div class="f" style="grid-column:1 / -1;"><label>Remarks</label><textarea id="ackIns_remarks" rows="2" placeholder="Enter remarks (if any)"></textarea></div>
                   <div class="f"><label>Attach Cover Note <span style="font-weight:400;color:var(--muted);">(Optional)</span></label>
                     <div class="file-row"><input type="file" id="ackIns_fileCoverNote" accept=".pdf,.jpg,.jpeg,.png"><span class="file-hint">PDF, JPG, PNG (Max 10MB)</span></div>
@@ -1751,6 +1759,7 @@ select.dc-st{border:0;border-radius:99px;padding:5px 10px;font:700 12px inherit;
                   <div class="f"><label>PI No.</label><input id="ackBe_piNo" readonly placeholder="Loads from LC No."></div>
                   <div class="f"><label>Item / Commodity</label><input id="ackBe_commodity" readonly placeholder="Loads from LC No."></div>
                   <div class="f"><label>Supplier</label><input id="ackBe_supplier" readonly placeholder="Loads from LC No."></div>
+                  <div class="f"><label>Unit <span class="req">*</span></label><input id="ackBe_unit" readonly placeholder="Loads from LC No."></div>
                 </div>
 
                 <div class="card" style="margin:14px 0;background:#f9fafc;">
@@ -1772,9 +1781,9 @@ select.dc-st{border:0;border-radius:99px;padding:5px 10px;font:700 12px inherit;
                   <div class="f"><label>B/E No.</label><input id="ackBe_beNo" placeholder="Enter B/E No."></div>
                   <div class="f"><label>B/E Date</label><input type="date" id="ackBe_beDate"></div>
                   <div class="f"><label>Bill of Entry Send to Factory Date</label><input type="date" id="ackBe_sentToFactoryDate"></div>
-                  <div class="f"><label>Received Date</label><input type="date" id="ackBe_receivedDate"></div>
+                  <div class="f" style="display:none;"><label>Received Date</label><input type="date" id="ackBe_receivedDate"></div>
                   <div class="f"><label>Acknowledged By</label><input id="ackBe_ackBy" placeholder="Enter Name"></div>
-                  <div class="f"><label>Acknowledgement Date</label><input type="date" id="ackBe_ackDate"></div>
+                  <div class="f" style="display:none;"><label>Acknowledgement Date</label><input type="date" id="ackBe_ackDate"></div>
                   <div class="f" style="grid-column:1 / -1;"><label>Remarks</label><textarea id="ackBe_remarks" rows="2" placeholder="Enter remarks (if any)"></textarea></div>
                   <div class="f"><label>Attach B/E Document <span style="font-weight:400;color:var(--muted);">(Optional)</span></label>
                     <div class="file-row"><input type="file" id="ackBe_fileBeDoc" accept=".pdf,.jpg,.jpeg,.png"><span class="file-hint">PDF, JPG, PNG (Max 10MB)</span></div>
@@ -1833,6 +1842,25 @@ select.dc-st{border:0;border-radius:99px;padding:5px 10px;font:700 12px inherit;
             <span id="ackListPageInfo">Showing 0 of 0 records</span>
             <div class="page-btns" id="ackListPageBtns"></div>
           </div>
+        </div>
+        <div class="card" id="fac_loginCard">
+          <h3>Factory VAT Acknowledgement — Unit Logins (Admin)</h3>
+          <div class="calc-hint" style="margin-bottom:10px;">Each Unit signs in to the separate <b>Factory VAT Acknowledgement app</b> with its own Login ID + PIN and sees <b>only</b> the Insurance Cover Note / Bill of Entry entries sent for that Unit (the Unit of the LC’s PI). You, as admin, see every Unit here. Never send Units this admin file.</div>
+          <div class="grid cols-2">
+            <div class="f"><label>Unit</label><input id="fac_gUnit" list="fac_gUnitList" placeholder="Must match the Unit name used in Factory VAT"><datalist id="fac_gUnitList"></datalist></div>
+            <div class="f"><label>Login ID</label><input id="fac_gLogin" autocomplete="off"></div>
+            <div class="f"><label>PIN / Password (min 4 characters — leave blank to keep the current PIN)</label><input id="fac_gPin" type="password" autocomplete="new-password"><label style="margin-top:6px;display:flex;gap:6px;align-items:center;"><input type="checkbox" id="fac_gShow" style="width:auto;"> Show PIN</label></div>
+            <div class="f"><label>Access</label><select id="fac_gActive"><option>Yes</option><option>No</option></select></div>
+          </div>
+          <div style="margin:12px 0;display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;">
+            <button class="btn btn-white" id="fac_gClear" type="button">Clear</button>
+            <button class="btn btn-white" id="fac_gGen" type="button" title="Fill the PIN box with a random 6-digit PIN">Generate PIN</button>
+            <button class="btn btn-white" id="fac_gTest" type="button" title="Checks this Login ID + PIN against the Sheet and tells you exactly why it fails">Test login</button>
+            <button class="btn btn-white" id="fac_gReset" type="button" title="Change only this Unit's PIN (also unlocks a locked-out Unit)">Update PIN only</button>
+            <button class="btn btn-solid" id="fac_gSave" type="button">Save Unit Login</button>
+          </div>
+          <div class="table-wrap"><table><thead><tr><th>Unit</th><th>Login ID</th><th>Access</th><th>Last Login</th><th></th></tr></thead><tbody id="fac_gBody"></tbody></table></div>
+          <div class="calc-hint" id="fac_gHint"></div>
         </div>
       </div>
 
@@ -4204,6 +4232,337 @@ select.dc-st{border:0;border-radius:99px;padding:5px 10px;font:700 12px inherit;
     var box = cg('cnf_eLinks'); if(!box) return; var l = String(str || '').split(';').filter(function(x){ return /^https?:/.test(x); });
     box.innerHTML = l.length ? '<b>Links sent to the C&amp;F agent:</b>' + l.map(function(u, i){ return '<a href="' + escapeHtml(u) + '" target="_blank" rel="noopener">📎 ' + (i + 1) + '. ' + escapeHtml(u) + '</a>'; }).join('') : '';
   }
+  // ---------- AI Assistant: no AI service — keyword rules (English / Bangla) + live calculation on the loaded sheet data ----------
+  var BOT = { ctx: null, ents: null, entsFor: null, freq: {}, open: false };
+  var B_STOP = { limited: 1, ltd: 1, plc: 1, co: 1, private: 1, pvt: 1, inc: 1, company: 1, bulk: 1, the: 1, and: 1, of: 1, 'in': 1, 'for': 1, llc: 1, corp: 1, corporation: 1 };
+  var B_ROBOT = '<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="31" fill="#7c3aed"/><rect x="29.5" y="8" width="5" height="9" rx="2" fill="#e5484d"/><rect x="14" y="16" width="36" height="32" rx="12" fill="#e9eaf0"/><rect x="19" y="24" width="26" height="14" rx="7" fill="#2b2d42"/><circle cx="26.5" cy="31" r="3.4" fill="#38bdf8"/><circle cx="37.5" cy="31" r="3.4" fill="#38bdf8"/><rect x="25" y="42" width="14" height="3" rx="1.5" fill="#9aa0b4"/><rect x="9" y="26" width="5" height="12" rx="2.5" fill="#c9cbd6"/><rect x="50" y="26" width="5" height="12" rx="2.5" fill="#c9cbd6"/></svg>';
+  function bNorm(x){ return String(x == null ? '' : x).toLowerCase().replace(/[^a-z0-9\u0980-\u09ff]+/g, ' ').trim(); }
+  function bUsd(v){ return '$' + (+v || 0).toLocaleString('en-US', { maximumFractionDigits: 0 }); }
+  function bUsd2(v){ return '$' + (+v || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+  function bNum(v, d){ return (+v || 0).toLocaleString('en-US', { maximumFractionDigits: d == null ? 2 : d }); }
+  function bE(x){ return escapeHtml(x == null || x === '' ? '—' : x); }
+  function bDate(x){ var m = alMs(x); if(m == null) return x ? escapeHtml(x) : '—'; var d = new Date(m); return d.getUTCDate() + ' ' + HM_MON[d.getUTCMonth()] + ' ' + d.getUTCFullYear(); }
+  function bToday(){ return alMs(AL.r && AL.r.today) || Date.now(); }
+  function bDays(x){ var m = alMs(x); return m == null ? null : Math.round((m - bToday()) / 864e5); }
+  function bDayTxt(x){ var d = bDays(x); return d == null ? '' : d < 0 ? '<span class="bot-red">' + (-d) + ' d ago</span>' : d === 0 ? '<span class="bot-amb">today</span>' : d + ' d'; }
+  function bLcLink(lc){ return '<a class="bot-lc" data-bot-lc="' + escapeHtml(lc) + '">' + escapeHtml(lc) + '</a>'; }
+  function bKv(k, v){ return '<div class="bot-kv"><span>' + k + '</span><b>' + v + '</b></div>'; }
+  function bTbl(h, rows, max){ max = max || 8; var more = rows.length - max;
+    return '<div class="bot-tw"><table class="bot-t"><thead><tr>' + h.map(function(x){ return '<th>' + x + '</th>'; }).join('') + '</tr></thead><tbody>' + rows.slice(0, max).map(function(r){ return '<tr>' + r.map(function(c){ return '<td>' + c + '</td>'; }).join('') + '</tr>'; }).join('') + '</tbody></table></div>' + (more > 0 ? '<div style="font-size:11.5px;color:#6b6790;margin-top:3px">+ ' + more + ' more</div>' : ''); }
+  function bSum(a, f){ return a.reduce(function(t, x){ return t + (+f(x) || 0); }, 0); }
+  function bUniq(a){ var o = {}; a.forEach(function(x){ if(x !== '' && x != null) o[x] = 1; }); return Object.keys(o); }
+
+  // LC aggregate: one entry per LC number
+  function bLcs(pis){
+    var m = {};
+    pis.forEach(function(p){ var lc = String(p.lcNo || '').trim(); if(!lc) return;
+      var o = m[lc] || (m[lc] = { lc: lc, pis: [], qty: 0, val: 0, amt: 0, bank: p.bank, lcDate: p.lcDate, expiry: p.expiry, latest: p.latestShip, closed: true, agent: p.agent, origin: p.origin });
+      o.pis.push(p); o.qty += srNum(p.qty); o.val += srNum(p.value); if(srNum(p.lcAmount) > o.amt) o.amt = srNum(p.lcAmount); if(!p.closed) o.closed = false;
+      ['expiry', 'latest', 'lcDate', 'bank', 'agent', 'origin'].forEach(function(k){ var v = k === 'latest' ? p.latestShip : p[k]; if(!o[k] && v) o[k] = v; }); });
+    Object.keys(m).forEach(function(k){ if(!m[k].amt) m[k].amt = m[k].val; });
+    return m;
+  }
+  // entities the user can type: items, suppliers, banks, origins, agents, vessels, LC / PI / BL numbers
+  function bEnts(){
+    var r = AL.r; if(!r) return []; if(BOT.entsFor === r) return BOT.ents;
+    var ents = [], seen = {};
+    function add(type, val){ val = String(val == null ? '' : val).trim(); if(!val) return; var k = type + '|' + val.toLowerCase(); if(seen[k]) return; seen[k] = 1;
+      ents.push({ type: type, val: val, key: bNorm(val), id: val.toLowerCase().replace(/[^a-z0-9]/g, ''), toks: bNorm(val).split(' ').filter(function(t){ return t && !B_STOP[t]; }) }); }
+    (r.pis || []).forEach(function(p){ add('item', p.item); add('supplier', p.supplier); add('bank', p.bank); add('origin', p.origin); add('agent', p.agent); add('lc', p.lcNo); add('pi', p.pi); });
+    (r.ships || []).forEach(function(x){ add('vessel', x.vessel); add('bl', x.bl); });
+    var f = {}; ents.forEach(function(e){ if(e.type === 'lc' || e.type === 'pi' || e.type === 'bl') return; e.toks.forEach(function(t){ f[e.type + '|' + t] = (f[e.type + '|' + t] || 0) + 1; }); });
+    BOT.ents = ents; BOT.entsFor = r; BOT.freq = f; return ents;
+  }
+  function bFind(q){
+    var qn = bNorm(q), qc = qn.replace(/[^a-z0-9]/g, ''), qs = {}, c = []; qn.split(' ').forEach(function(t){ qs[t] = 1; });
+    bEnts().forEach(function(e){
+      if(e.type === 'lc' || e.type === 'pi' || e.type === 'bl'){ if(e.id.length >= 4 && qc.indexOf(e.id) !== -1) c.push({ e: e, s: 1000 + e.id.length }); return; }
+      if(!e.toks.length) return;
+      if((' ' + qn + ' ').indexOf(' ' + e.key + ' ') !== -1){ c.push({ e: e, s: 500 + e.key.length }); return; }
+      var hit = e.toks.filter(function(t){ return qs[t]; }); if(!hit.length) return;
+      if(hit.some(function(t){ return t.length >= 4 && BOT.freq[e.type + '|' + t] === 1; }) || hit.length === e.toks.length || hit.length >= 2) c.push({ e: e, s: 100 * hit.length + hit.join('').length });
+    });
+    return c.sort(function(a, b){ return b.s - a.s; });
+  }
+  // the part of the data an entity refers to
+  function bScope(ent){
+    var r = AL.r, pis = r.pis || [], ships = r.ships || [], v = ent ? ent.val.toLowerCase() : '';
+    if(ent){
+      var byLc = function(set){ return { pis: pis.filter(function(p){ return set[p.lcNo]; }), ships: ships.filter(function(x){ return set[x.lcNo]; }) }; }, set = {}, out;
+      if(ent.type === 'vessel'){ ships.forEach(function(x){ if(String(x.vessel).toLowerCase() === v) set[x.lcNo] = 1; }); out = byLc(set); out.ships = out.ships.filter(function(x){ return String(x.vessel).toLowerCase() === v; }); }
+      else if(ent.type === 'bl'){ ships.forEach(function(x){ if(String(x.bl).toLowerCase() === v) set[x.lcNo] = 1; }); out = byLc(set); out.ships = out.ships.filter(function(x){ return String(x.bl).toLowerCase() === v; }); }
+      else if(ent.type === 'lc'){ set[ent.val] = 1; out = byLc(set); }
+      else if(ent.type === 'pi'){ var ps = pis.filter(function(p){ return String(p.pi).toLowerCase() === v; }); ps.forEach(function(p){ if(p.lcNo) set[p.lcNo] = 1; }); out = byLc(set); out.pis = out.pis.concat(ps.filter(function(p){ return !p.lcNo; })); }
+      else { var key = { item: 'item', supplier: 'supplier', bank: 'bank', origin: 'origin', agent: 'agent' }[ent.type], ps2 = pis.filter(function(p){ return String(p[key]).toLowerCase() === v; });
+        ps2.forEach(function(p){ if(p.lcNo) set[p.lcNo] = 1; }); out = { pis: ps2, ships: ships.filter(function(x){ return set[x.lcNo]; }) }; }
+      out.lcs = bLcs(out.pis); return out;
+    }
+    return { pis: pis, ships: ships, lcs: bLcs(pis) };
+  }
+  function bShipRows(sc){   // shipments joined with their PI info and status
+    var info = {}; sc.pis.forEach(function(p){ if(p.lcNo && !info[p.lcNo]) info[p.lcNo] = p; });
+    return sc.ships.map(function(x){ var p = info[x.lcNo] || {}, lc = sc.lcs[x.lcNo], arrived = !!String(x.arrival || '').trim(), d = bDays(x.eta);
+      return { s: x, item: p.item || '', supplier: p.supplier || '', arrived: arrived, closed: lc ? lc.closed : false, days: d, late: !arrived && !(lc && lc.closed) && d != null && d < 0, up: !arrived && !(lc && lc.closed) && (d == null || d >= 0) }; });
+  }
+  function bShipTbl(rows, max){ return bTbl(['Vessel', 'LC', 'Item', 'Qty', 'ETA', ''], rows.map(function(r){ return [bE(r.s.vessel || r.s.bl), bLcLink(r.s.lcNo), bE(r.item), bNum(r.s.qty, 0), bDate(r.s.eta), bDayTxt(r.s.eta)]; }), max); }
+
+  // ----- answers -----
+  function hOverview(sc){
+    var lcs = Object.keys(sc.lcs).map(function(k){ return sc.lcs[k]; }), pend = sc.pis.filter(function(p){ return !p.lcNo && !p.closed; }), sh = bShipRows(sc), exp = lcs.filter(function(l){ var d = bDays(l.expiry); return !l.closed && d != null && d <= 30; });
+    return '<div class="bot-h3">Summary</div>' + bKv('PIs', bNum(sc.pis.length, 0)) + bKv('PIs waiting for LC opening', bNum(pend.length, 0)) + bKv('LCs (open / closed)', lcs.filter(function(l){ return !l.closed; }).length + ' / ' + lcs.filter(function(l){ return l.closed; }).length) +
+      bKv('Total LC value', bUsd(bSum(lcs, function(l){ return l.amt; }))) + bKv('Vessels coming', sh.filter(function(x){ return x.up; }).length) + bKv('Delayed shipments', '<span class="bot-red">' + sh.filter(function(x){ return x.late; }).length + '</span>') +
+      bKv('LCs expiring ≤ 30 days', '<span class="bot-amb">' + exp.length + '</span>');
+  }
+  function hValue(sc, ent){
+    var lcs = Object.keys(sc.lcs).map(function(k){ return sc.lcs[k]; }), open = lcs.filter(function(l){ return !l.closed; }), pend = sc.pis.filter(function(p){ return !p.lcNo && !p.closed; });
+    var h = '<b>Total LC value: ' + bUsd(bSum(lcs, function(l){ return l.amt; })) + '</b> in ' + lcs.length + ' LC' + (lcs.length === 1 ? '' : 's') + (ent ? ' (' + escapeHtml(ent.val) + ')' : '') + '.' +
+      bKv('Open LCs', open.length + ' · ' + bUsd(bSum(open, function(l){ return l.amt; }))) + bKv('Total PI value', bUsd(bSum(sc.pis, function(p){ return srNum(p.value); }))) + bKv('PIs waiting for LC', pend.length + ' · ' + bUsd(bSum(pend, function(p){ return srNum(p.value); })));
+    if(!ent){ var g = {}; lcs.forEach(function(l){ var k = (l.pis[0] || {}).supplier || '—'; g[k] = (g[k] || 0) + l.amt; });
+      h += '<div class="bot-h3">Top suppliers by LC value</div>' + bTbl(['Supplier', 'LC value'], Object.keys(g).sort(function(a, b){ return g[b] - g[a]; }).map(function(k){ return [bE(k), bUsd(g[k])]; }), 5); }
+    return h;
+  }
+  function hExpiry(sc){
+    var lcs = Object.keys(sc.lcs).map(function(k){ return sc.lcs[k]; }).filter(function(l){ var d = bDays(l.expiry); return !l.closed && d != null && d <= 30; }).sort(function(a, b){ return (alMs(a.expiry) || 0) - (alMs(b.expiry) || 0); });
+    if(!lcs.length) return '✓ No open LC is expiring in the next 30 days (or already expired).';
+    var ex = lcs.filter(function(l){ return bDays(l.expiry) < 0; }).length;
+    return '<b>' + lcs.length + ' open LC' + (lcs.length > 1 ? 's' : '') + ' expire within 30 days</b>' + (ex ? ' — <span class="bot-red">' + ex + ' already expired</span>' : '') + '.' +
+      bTbl(['LC', 'Supplier', 'Item', 'Expiry', ''], lcs.map(function(l){ var p = l.pis[0] || {}; return [bLcLink(l.lc), bE(p.supplier), bE(p.item), bDate(l.expiry), bDayTxt(l.expiry)]; }), 10);
+  }
+  function hPendingPi(sc){
+    var ps = sc.pis.filter(function(p){ return !p.lcNo && !p.closed; }).sort(function(a, b){ return (alMs(a.piDate) || 0) - (alMs(b.piDate) || 0); });
+    if(!ps.length) return '✓ No PI is waiting for LC opening.';
+    return '<b>' + ps.length + ' PI' + (ps.length > 1 ? 's' : '') + ' waiting for LC opening</b> — total ' + bUsd(bSum(ps, function(p){ return srNum(p.value); })) + '. <span style="color:#6b6790">(Full table: Reports → PI &amp; LC Summary Reports)</span>' +
+      bTbl(['PI', 'Date', 'Supplier', 'Item', 'Value'], ps.map(function(p){ return [bE(p.pi), bDate(p.piDate), bE(p.supplier), bE(p.item), bUsd(srNum(p.value))]; }), 8);
+  }
+  function hShip(sc, mode){
+    var rows = bShipRows(sc), up = rows.filter(function(x){ return x.up; }).sort(function(a, b){ return (alMs(a.s.eta) || 9e15) - (alMs(b.s.eta) || 9e15); }), late = rows.filter(function(x){ return x.late; }), arr = rows.filter(function(x){ return x.arrived; });
+    var head = bKv('Coming (not arrived)', up.length) + bKv('Delayed (ETA passed)', '<span class="bot-red">' + late.length + '</span>') + bKv('Arrived', arr.length);
+    if(mode === 'late') return late.length ? '<b>' + late.length + ' delayed shipment' + (late.length > 1 ? 's' : '') + '</b>' + bShipTbl(late, 10) : '✓ No delayed shipment.' + head;
+    return (up.length ? '<b>Next vessels</b>' + bShipTbl(up, 8) : 'No shipment is on the way.') + head;
+  }
+  function hDuty(sc){
+    var set = sc.lcs, cn = (AL.r.cnf || []).filter(function(c){ return set[c.lcNo]; }), tot = bSum(cn, function(c){ return srNum(c.totalDuty); }), paid = bSum(cn, function(c){ return srNum(c.paidDuty); });
+    if(!cn.length || !tot) return 'No duty amount is recorded yet for this selection.';
+    var g = {}; cn.forEach(function(c){ var o = g[c.lcNo] || (g[c.lcNo] = { t: 0, p: 0 }); o.t += srNum(c.totalDuty); o.p += srNum(c.paidDuty); });
+    var un = Object.keys(g).filter(function(k){ return g[k].t - g[k].p > 0.5; }).sort(function(a, b){ return (g[b].t - g[b].p) - (g[a].t - g[a].p); });
+    return '<b>Duty — total ' + bUsd(tot) + '</b>' + bKv('Paid', bUsd(paid)) + bKv('Payable', '<span class="bot-red">' + bUsd(Math.max(0, tot - paid)) + '</span>') +
+      (un.length ? '<div class="bot-h3">Duty payable by LC</div>' + bTbl(['LC', 'Total', 'Paid', 'Payable'], un.map(function(k){ return [bLcLink(k), bUsd(g[k].t), bUsd(g[k].p), bUsd(g[k].t - g[k].p)]; }), 8) : '<div class="bot-grn">✓ All recorded duty is paid.</div>');
+  }
+  function hPrice(sc, ent){
+    var g = {}; sc.pis.forEach(function(p){ var it = String(p.item || '').trim(), q = srNum(p.qty), pr = srNum(p.unitPrice); if(!(pr > 0) && q > 0) pr = srNum(p.value) / q; if(!it || !(pr > 0)) return;
+      var o = g[it.toUpperCase()] || (g[it.toUpperCase()] = { n: it, s: 0, c: 0, mn: 1e18, mx: 0, last: 0, lastMs: 0, uom: p.uom || 'MT' }); o.s += pr; o.c++; o.mn = Math.min(o.mn, pr); o.mx = Math.max(o.mx, pr); var ms = alMs(p.piDate) || 0; if(ms >= o.lastMs){ o.lastMs = ms; o.last = pr; } });
+    var k = Object.keys(g).sort(); if(!k.length) return 'No unit price is recorded for this selection.';
+    return '<b>Average unit price' + (ent ? ' — ' + escapeHtml(ent.val) : ' by item') + '</b>' + bTbl(['Item', 'Average', 'Latest', 'Min – Max'], k.map(function(i){ var o = g[i]; return [bE(o.n), bUsd2(o.s / o.c), bUsd2(o.last), bUsd2(o.mn) + ' – ' + bUsd2(o.mx)]; }), 12);
+  }
+  function hQty(sc){
+    var g = {}; Object.keys(sc.lcs).forEach(function(k){ sc.lcs[k].pis.forEach(function(p){ var it = String(p.item || '—').toUpperCase(), o = g[it] || (g[it] = { q: 0, l: {}, u: p.uom || 'MT' }); o.q += srNum(p.qty); o.l[p.lcNo] = 1; }); });
+    var k = Object.keys(g).sort(function(a, b){ return g[b].q - g[a].q; }); if(!k.length) return 'No LC quantity found.';
+    return '<b>LC quantity by item</b>' + bTbl(['Item', 'LCs', 'Quantity'], k.map(function(i){ return [bE(i), Object.keys(g[i].l).length, bNum(g[i].q, 0) + ' ' + escapeHtml(g[i].u)]; }), 12);
+  }
+  function hGroup(sc, key, title){
+    var g = {}; sc.pis.forEach(function(p){ var k = String(p[key] || '—').trim(), o = g[k] || (g[k] = { pi: 0, v: 0, l: {}, ex: 0 }); o.pi++; o.v += srNum(p.value); if(p.lcNo) o.l[p.lcNo] = 1; });
+    Object.keys(sc.lcs).forEach(function(l){ var L = sc.lcs[l], k = String((L.pis[0] || {})[key] || '—').trim(), d = bDays(L.expiry); if(!L.closed && d != null && d <= 30 && g[k]) g[k].ex++; });
+    var ks = Object.keys(g).sort(function(a, b){ return g[b].v - g[a].v; });
+    return '<b>' + title + '</b>' + bTbl([title.replace(/^By /, ''), 'PIs', 'LCs', 'PI value', 'Expiring'], ks.map(function(k){ return [bE(k), g[k].pi, Object.keys(g[k].l).length, bUsd(g[k].v), g[k].ex ? '<span class="bot-amb">' + g[k].ex + '</span>' : '0']; }), 8);
+  }
+  function hInsurance(sc){
+    var lcs = Object.keys(sc.lcs).map(function(k){ return sc.lcs[k]; }).filter(function(l){ return !l.closed; }), none = [], noAck = [];
+    lcs.forEach(function(l){ var p = l.pis.filter(function(x){ return x.insNo; })[0]; if(!p) none.push(l); else if(!p.insAck) noAck.push({ l: l, p: p }); });
+    return '<b>Insurance</b>' + bKv('Open LCs without a cover note', '<span class="bot-red">' + none.length + '</span>') + bKv('Cover note not acknowledged by factory', '<span class="bot-amb">' + noAck.length + '</span>') +
+      (none.length ? '<div class="bot-h3">No cover note yet</div>' + bTbl(['LC', 'Supplier', 'Item'], none.map(function(l){ var p = l.pis[0] || {}; return [bLcLink(l.lc), bE(p.supplier), bE(p.item)]; }), 6) : '') +
+      (noAck.length ? '<div class="bot-h3">Waiting for factory acknowledgement</div>' + bTbl(['LC', 'Company', 'Cover note'], noAck.map(function(x){ return [bLcLink(x.l.lc), bE(x.p.insCompany), bE(x.p.insNo)]; }), 6) : '');
+  }
+  function hBe(sc){
+    var rows = bShipRows(sc), noBe = rows.filter(function(x){ return x.arrived && !x.s.beNo && !x.closed; }), noAck = rows.filter(function(x){ return x.s.beNo && x.s.beSent && !x.s.beAckDate; });
+    return '<b>Bill of Entry</b>' + bKv('Arrived shipments without B/E No.', '<span class="bot-red">' + noBe.length + '</span>') + bKv('B/E sent to factory, not acknowledged', '<span class="bot-amb">' + noAck.length + '</span>') +
+      (noBe.length ? '<div class="bot-h3">Arrived — B/E missing</div>' + bTbl(['LC', 'BL', 'Item', 'Arrived'], noBe.map(function(x){ return [bLcLink(x.s.lcNo), bE(x.s.bl), bE(x.item), bDate(x.s.arrival)]; }), 6) : '') +
+      (noAck.length ? '<div class="bot-h3">Waiting for factory acknowledgement</div>' + bTbl(['LC', 'BL', 'B/E No.', 'Sent'], noAck.map(function(x){ return [bLcLink(x.s.lcNo), bE(x.s.bl), bE(x.s.beNo), bDate(x.s.beSent)]; }), 6) : '');
+  }
+  function hRefund(sc){
+    var l = (AL.r.lcu || []).filter(function(u){ return sc.lcs[u.lcNo] && srNum(u.refund) > 0 && !/refund|paid|adjust|complete|settled/i.test(u.refundStatus || ''); });
+    return l.length ? '<b>Refund pending: ' + bUsd(bSum(l, function(u){ return srNum(u.refund); })) + '</b> in ' + l.length + ' LC' + (l.length > 1 ? 's' : '') + bTbl(['LC', 'Un-utilized', 'Net refund', 'Status'], l.map(function(u){ return [bLcLink(u.lcNo), bUsd(srNum(u.value)), bUsd(srNum(u.refund)), bE(u.refundStatus)]; }), 8) : '✓ No LC refund is pending.';
+  }
+  function hAlerts(){
+    var L = window.AppNotify ? AppNotify.items() : []; if(!L.length) return 'There are no alerts right now.';
+    var c = { Critical: 0, High: 0, Medium: 0, Low: 0 }; L.forEach(function(i){ c[alPrio(i)]++; });
+    return '<b>' + L.length + ' alerts</b>' + bKv('Critical', '<span class="bot-red">' + c.Critical + '</span>') + bKv('High', c.High) + bKv('Medium', c.Medium) + bKv('Low', c.Low) + '<a class="bot-lc" data-bot-go="alerts">Open the Alerts page ›</a>';
+  }
+  // ----- entity cards -----
+  function bLcCard(L, sc){
+    var p = L.pis[0] || {}, d = bDays(L.expiry), sh = bShipRows({ pis: sc.pis, ships: sc.ships.filter(function(x){ return x.lcNo === L.lc; }), lcs: sc.lcs }), cn = (AL.r.cnf || []).filter(function(c){ return c.lcNo === L.lc; });
+    var h = '<div class="bot-h3">LC ' + escapeHtml(L.lc) + (L.closed ? ' <span class="bot-grn">· closed</span>' : ' <span class="bot-amb">· open</span>') + '</div>' + bKv('Supplier', bE(p.supplier)) + bKv('Item', bE(bUniq(L.pis.map(function(x){ return x.item; })).join(', '))) + bKv('Quantity', bNum(L.qty, 0) + ' ' + escapeHtml(p.uom || 'MT')) +
+      bKv('LC amount', bUsd(L.amt)) + bKv('Bank', bE(L.bank)) + bKv('LC date', bDate(L.lcDate)) + bKv('Expiry', bDate(L.expiry) + (d != null && !L.closed ? ' (' + (d < 0 ? '<span class="bot-red">expired ' + (-d) + ' d ago</span>' : d + ' d left') + ')' : '')) + bKv('Latest shipment date', bDate(L.latest)) + bKv('PI No.', bE(bUniq(L.pis.map(function(x){ return x.pi; })).join(', '))) + bKv('C&F agent', bE(L.agent));
+    var ins = L.pis.filter(function(x){ return x.insNo; })[0]; h += bKv('Insurance', ins ? bE(ins.insCompany) + ' · ' + bE(ins.insNo) + (ins.insAck ? ' · <span class="bot-grn">acknowledged</span>' : ' · <span class="bot-amb">ack pending</span>') : '<span class="bot-red">no cover note</span>');
+    if(cn.length){ var t = bSum(cn, function(c){ return srNum(c.totalDuty); }), pd = bSum(cn, function(c){ return srNum(c.paidDuty); }); if(t) h += bKv('Duty', bUsd(t) + ' (paid ' + bUsd(pd) + ')'); }
+    if(sh.length) h += '<div class="bot-h3">Shipments</div>' + bTbl(['Vessel / BL', 'Qty', 'ETA', 'Arrival', 'B/E'], sh.map(function(x){ return [bE(x.s.vessel || x.s.bl), bNum(x.s.qty, 0), bDate(x.s.eta), x.arrived ? bDate(x.s.arrival) : (x.late ? '<span class="bot-red">delayed</span>' : '—'), bE(x.s.beNo)]; }), 6);
+    else h += '<div style="color:#6b6790;margin-top:4px">No shipment is recorded for this LC yet.</div>';
+    return h + '<br><button class="bot-go" data-bot-lc="' + escapeHtml(L.lc) + '">Open full LC report ›</button>';
+  }
+  function bEntityCard(ent, sc){
+    var h = '', lcs = Object.keys(sc.lcs).map(function(k){ return sc.lcs[k]; });
+    if(ent.type === 'lc') return lcs.length ? bLcCard(lcs[0], sc) : 'LC not found.';
+    if(ent.type === 'pi'){ var p = sc.pis.filter(function(x){ return String(x.pi).toLowerCase() === ent.val.toLowerCase(); })[0]; if(!p) return 'PI not found.';
+      h = '<div class="bot-h3">PI ' + escapeHtml(p.pi) + '</div>' + bKv('PI date', bDate(p.piDate)) + bKv('Supplier', bE(p.supplier)) + bKv('Item', bE(p.item)) + bKv('Quantity', bNum(srNum(p.qty), 0) + ' ' + escapeHtml(p.uom || 'MT')) + bKv('Value', bUsd(srNum(p.value))) + bKv('Unit price', bUsd2(srNum(p.unitPrice))) + bKv('Unit', bE(p.unit));
+      return h + (p.lcNo && sc.lcs[p.lcNo] ? bLcCard(sc.lcs[p.lcNo], sc) : '<div class="bot-amb" style="margin-top:6px">LC is not opened yet for this PI.</div>'); }
+    if(ent.type === 'bl'){ var x = sc.ships[0]; if(!x) return 'Shipment not found.'; var r2 = bShipRows(sc)[0];
+      h = '<div class="bot-h3">BL ' + escapeHtml(x.bl) + '</div>' + bKv('Vessel', bE(x.vessel)) + bKv('LC', bLcLink(x.lcNo)) + bKv('Item', bE(r2.item)) + bKv('Quantity', bNum(x.qty, 0)) + bKv('Loading → Discharge', bE(x.pol) + ' → ' + bE(x.pod)) + bKv('ETA', bDate(x.eta) + ' ' + bDayTxt(x.eta)) + bKv('Arrival', bDate(x.arrival)) + bKv('Status', bE(x.status)) + bKv('B/E', bE(x.beNo) + (x.beDate ? ' · ' + bDate(x.beDate) : ''));
+      return h + '<br><button class="bot-go" data-bot-lc="' + escapeHtml(x.lcNo) + '">Open LC report ›</button>'; }
+    // item / supplier / bank / origin / agent / vessel
+    var open = lcs.filter(function(l){ return !l.closed; }), pend = sc.pis.filter(function(p2){ return !p2.lcNo && !p2.closed; }), sh = bShipRows(sc), up = sh.filter(function(y){ return y.up; }).sort(function(a, b){ return (alMs(a.s.eta) || 9e15) - (alMs(b.s.eta) || 9e15); }), late = sh.filter(function(y){ return y.late; });
+    h = '<div class="bot-h3">' + escapeHtml(ent.val) + ' <span style="color:#6b6790;font-weight:500">(' + { item: 'item', supplier: 'supplier', bank: 'bank', origin: 'origin', agent: 'C&F agent', vessel: 'vessel' }[ent.type] + ')</span></div>';
+    if(ent.type !== 'vessel') h += bKv('PIs', sc.pis.length) + bKv('LCs (open / total)', open.length + ' / ' + lcs.length) + bKv('LC value', bUsd(bSum(lcs, function(l){ return l.amt; }))) + bKv('Total LC quantity', bNum(bSum(lcs, function(l){ return l.qty; }), 0)) + bKv('PIs waiting for LC', pend.length ? '<span class="bot-amb">' + pend.length + ' · ' + bUsd(bSum(pend, function(q){ return srNum(q.value); })) + '</span>' : '0');
+    else h += bKv('Shipments', sh.length) + bKv('Quantity', bNum(bSum(sh, function(y){ return srNum(y.s.qty); }), 0)) + bKv('LCs', bUniq(sh.map(function(y){ return y.s.lcNo; })).length);
+    var pr = []; sc.pis.forEach(function(q){ var u = srNum(q.unitPrice); if(u > 0) pr.push(u); }); if(ent.type === 'item' && pr.length) h += bKv('Unit price (avg · min – max)', bUsd2(bSum(pr, function(v){ return v; }) / pr.length) + ' · ' + bUsd2(Math.min.apply(null, pr)) + ' – ' + bUsd2(Math.max.apply(null, pr)));
+    if(ent.type !== 'supplier') { var su = bUniq(sc.pis.map(function(q){ return q.supplier; })); if(su.length) h += bKv('Suppliers', bE(su.slice(0, 4).join(', ') + (su.length > 4 ? ' +' + (su.length - 4) : ''))); }
+    if(ent.type !== 'item') { var it = bUniq(sc.pis.map(function(q){ return q.item; })); if(it.length) h += bKv('Items', bE(it.slice(0, 4).join(', ') + (it.length > 4 ? ' +' + (it.length - 4) : ''))); }
+    if(ent.type !== 'bank' && ent.type !== 'vessel'){ var bk = bUniq(sc.pis.map(function(q){ return q.bank; })); if(bk.length) h += bKv('Banks', bE(bk.slice(0, 3).join(', '))); }
+    if(late.length) h += '<div class="bot-h3 bot-red">Delayed shipments (' + late.length + ')</div>' + bShipTbl(late, 4);
+    if(up.length) h += '<div class="bot-h3">Coming vessels</div>' + bShipTbl(up, 5);
+    var ex = open.filter(function(l){ var d = bDays(l.expiry); return d != null && d <= 30; }); if(ex.length) h += '<div class="bot-h3 bot-amb">LCs expiring ≤ 30 days (' + ex.length + ')</div>' + bTbl(['LC', 'Expiry', ''], ex.map(function(l){ return [bLcLink(l.lc), bDate(l.expiry), bDayTxt(l.expiry)]; }), 4);
+    if(lcs.length && ent.type !== 'vessel') h += '<div class="bot-h3">LCs</div>' + bTbl(['LC', 'Amount', 'Expiry'], lcs.sort(function(a, b){ return (alMs(b.lcDate) || 0) - (alMs(a.lcDate) || 0); }).map(function(l){ return [bLcLink(l.lc), bUsd(l.amt), bDate(l.expiry)]; }), 5);
+    return h;
+  }
+  // ----- understanding the question -----
+  function bHas(qn, arr){ return arr.some(function(k){ return qn.indexOf(k) !== -1; }); }
+  var B_TOPICS = [
+    ['alerts', ['alert', 'notification', 'অ্যালার্ট', 'নোটিফিকেশন']], ['refund', ['refund', 'unutil', 'un util', 'রিফান্ড']], ['duty', ['duty', 'customs', 'শুল্ক', 'ডিউটি', 'কাস্টমস']],
+    ['expiry', ['expir', 'validity', 'valid till', 'মেয়াদ']], ['pendingpi', ['pending pi', 'pi pending', 'without lc', 'not opened', 'lc opening', 'yet to open', 'পেন্ডিং পি', 'এলসি খোলা', 'এলসি ওপেন']],
+    ['insurance', ['insurance', 'cover note', 'ইনস্যুরেন্স', 'কভার নোট']], ['be', ['bill of entry', 'b e ', 'বিল অফ এন্ট্রি']], ['late', ['delay', 'late ', 'overdue', 'behind', 'বিলম্ব', 'দেরি']],
+    ['ship', ['vessel', 'shipment', 'eta', 'arriv', 'incoming', 'upcoming', 'in transit', 'on the way', 'জাহাজ', 'ভেসেল', 'শিপমেন্ট', 'আসছে', 'পৌঁছ']], ['price', ['price', 'rate', 'দাম', 'রেট']],
+    ['qty', ['qty', 'quantity', ' mt', 'tonn', 'টন', 'পরিমাণ']], ['supplier', ['supplier', 'vendor', 'সাপ্লায়ার', 'সরবরাহ']], ['bank', ['bank', 'ব্যাংক']],
+    ['value', ['value', 'amount', 'worth', 'total', 'টাকা', 'ভ্যালু', 'মূল্য', 'মোট']], ['overview', ['summary', 'overview', 'status', 'dashboard', 'সারসংক্ষেপ', 'সামারি', 'অবস্থা', 'কী অবস্থা']]];
+  function bTopic(qn){ for(var i = 0; i < B_TOPICS.length; i++) if(bHas(' ' + qn + ' ', B_TOPICS[i][1])) return B_TOPICS[i][0]; return ''; }
+  function bAnswer(text){
+    var qn = bNorm(text), r = AL.r;
+    if(!r) { if(typeof alPoll === 'function') alPoll(false).then(function(){ bPush('ai', 'Data is loaded now — please ask again.'); }); return { html: 'The data is still loading from the Sheet …' }; }
+    if(/^(hi|hello|hey|salam|assalamu|assalamualaikum|হাই|হ্যালো|আসসালামু)/.test(qn) && qn.split(' ').length <= 3) return { html: 'Hello! Ask me about LCs, PIs, shipments, vessels, duty or prices — or just type an item, vessel, supplier, bank, LC / PI / BL number.', chips: bChips() };
+    if(bHas(qn, ['help', 'what can', 'how to use', 'সাহায্য'])) return { html: '<b>You can ask things like:</b><br>• “Total LC value?” · “LCs expiring soon?”<br>• “Which vessels are coming?” · “Delayed shipments?”<br>• “Duty payable?” · “Average price of clinker”<br>• Type any <b>item</b>, <b>supplier</b>, <b>vessel</b>, <b>bank</b>, <b>LC no.</b>, <b>PI no.</b> or <b>BL no.</b> to see everything about it.<br>• Bangla works too: “মেয়াদ শেষ হচ্ছে কোন এলসি?”', chips: bChips() };
+    if(bHas(qn, ['stock', 'inventory', 'receivable', 'payment', 'বকেয়া', 'পেমেন্ট', 'ইনভেন্টরি', 'স্টক'])) return { html: 'Stock, inventory and payment data are not part of this system’s Sheet, so I can’t answer that. I can answer about LC, PI, shipments, vessels, duty, insurance, Bill of Entry and prices.', chips: bChips() };
+    var cands = bFind(text), ent = cands.length ? cands[0].e : null, words = qn.split(' ').length, rest = ' ' + qn + ' ';
+    if(ent){ rest = rest.replace(' ' + ent.key + ' ', ' '); ent.toks.forEach(function(t){ rest = rest.split(' ' + t + ' ').join(' '); }); }
+    var topic = bTopic(rest.trim());
+    if(ent && cands[1] && cands[1].s === cands[0].s && cands[1].e.type === ent.type && ent.type !== 'lc' && ent.type !== 'pi' && ent.type !== 'bl')
+      return { html: 'Which one do you mean?', chips: cands.filter(function(c){ return c.s === cands[0].s && c.e.type === ent.type; }).slice(0, 5).map(function(c){ return c.e.val; }) };
+    if(!ent && topic && BOT.ctx && /(^| )(this|it|its|that|same|them|those)( |$)|এটা|এর |ওটা/.test(qn)) ent = BOT.ctx;   // follow-up such as “its price”
+    var sc = bScope(ent), h = '', chips = [];
+    if(ent && !topic){ BOT.ctx = ent; h = bEntityCard(ent, sc);
+      var E = ent.val, kinds = ({ item: ['price', 'vessels', 'expiry', 'duty'], supplier: ['vessels', 'expiry', 'duty', 'price'], bank: ['expiry', 'delayed'], origin: ['vessels', 'price'], agent: ['vessels', 'duty'], vessel: ['duty'] })[ent.type] || [];
+      chips = kinds.map(function(k){ return [k === 'vessels' ? 'Vessels coming' : k === 'expiry' ? 'LCs expiring' : k === 'delayed' ? 'Delayed shipments' : k === 'price' ? 'Unit price' : 'Duty payable', (k === 'vessels' ? 'vessels coming of ' : k === 'expiry' ? 'LC expiry of ' : k === 'delayed' ? 'delayed shipments of ' : k === 'price' ? 'price of ' : 'duty payable of ') + E]; }); return { html: h, chips: chips }; }
+    if(ent) BOT.ctx = ent;
+    var pre = ent ? '<span style="color:#6b6790;font-size:12px">For ' + escapeHtml(ent.val) + ':</span><br>' : '';
+    switch(topic){
+      case 'alerts': h = hAlerts(); break; case 'refund': h = hRefund(sc); break; case 'duty': h = hDuty(sc); break; case 'expiry': h = hExpiry(sc); break; case 'pendingpi': h = hPendingPi(sc); break;
+      case 'insurance': h = hInsurance(sc); break; case 'be': h = hBe(sc); break; case 'late': h = hShip(sc, 'late'); break; case 'ship': h = hShip(sc, ''); break;
+      case 'price': h = hPrice(sc, ent && ent.type === 'item' ? ent : null); break; case 'qty': h = hQty(sc); break;
+      case 'supplier': h = hGroup(sc, 'supplier', 'By Supplier'); break; case 'bank': h = hGroup(sc, 'bank', 'By Bank'); break;
+      case 'value': h = hValue(sc, ent); break; case 'overview': h = hOverview(sc); break;
+      default:
+        if(cands.length) return { html: bEntityCard(cands[0].e, bScope(cands[0].e)) };
+        return { html: 'I didn’t understand that. Try a question such as “total LC value”, “LCs expiring soon”, “vessels coming”, “duty payable”, or type an item, supplier, vessel, LC / PI / BL number.', chips: bChips() };
+    }
+    return { html: pre + h, chips: ent ? [] : ['Summary', 'Delayed shipments?', 'Insurance pending?'] };
+  }
+  function bChips(){ return ['Total LC value?', 'Which LC is expiring soon?', 'Which PIs are waiting for LC opening?', 'Which vessels are coming?', 'How much duty is payable?', 'Average unit price by item?']; }
+
+  // ----- chat window -----
+  function bBox(){ return cg('bot_m'); }
+  function bScroll(){ var m = bBox(); if(m) m.scrollTop = m.scrollHeight; }
+  function bChipHtml(l){ return l.map(function(x){ var lab = Array.isArray(x) ? x[0] : x, qy = Array.isArray(x) ? x[1] : x; return '<button class="bot-q" type="button" data-bot-q="' + escapeHtml(qy) + '">' + escapeHtml(lab) + '</button>'; }).join(''); }
+  function bPush(who, html, chips){
+    var d = document.createElement('div'); d.className = 'bot-b ' + who; d.innerHTML = html;
+    if(chips && chips.length){ var c = document.createElement('div'); c.className = 'bot-chips'; c.innerHTML = bChipHtml(chips); d.appendChild(c); }
+    bBox().appendChild(d); bScroll(); return d;
+  }
+  function bWelcome(){
+    var m = bBox(); m.innerHTML = ''; BOT.ctx = null;
+    bPush('ai', 'Assalamu Alaikum! I’m the assistant of the Crown Cement SCM dashboard — ask me about LCs, PIs, shipments, vessels, duty and prices in English or Bangla. Type an item, vessel, supplier, LC / PI / BL number and I’ll show everything about it.');
+    bChips().forEach(function(q){ var b = document.createElement('button'); b.type = 'button'; b.className = 'bot-q'; b.setAttribute('data-bot-q', q); b.textContent = q; m.appendChild(b); });
+  }
+  function bAsk(text){
+    text = String(text || '').trim(); if(!text) return;
+    var m = bBox(); [].slice.call(m.querySelectorAll(':scope > .bot-q')).forEach(function(b){ b.remove(); });
+    bPush('me', escapeHtml(text)); var t = bPush('ai', '<span class="bot-dots"><span></span><span></span><span></span></span>');
+    setTimeout(function(){ var a; try { a = bAnswer(text); } catch(e){ a = { html: 'Sorry, I could not work that out (' + escapeHtml(e.message) + ').' }; } t.innerHTML = a.html; if(a.chips && a.chips.length){ var c = document.createElement('div'); c.className = 'bot-chips'; c.innerHTML = bChipHtml(a.chips); t.appendChild(c); } bScroll(); }, 250);
+  }
+  function bOpenLc(lc){
+    cg('bot_panel').classList.remove('on'); alGo('report');
+    setTimeout(function(){ var inp = cg('rpt_lcNo'), b = cg('rpt_loadBtn'); if(inp && b){ inp.value = lc; b.click(); } }, 150);
+  }
+  (function botInit(){
+    var fab = document.createElement('button'); fab.id = 'bot_fab'; fab.className = 'bot-fab'; fab.type = 'button'; fab.title = 'AI Assistant'; fab.innerHTML = B_ROBOT;
+    var pn = document.createElement('div'); pn.id = 'bot_panel'; pn.className = 'bot-panel';
+    pn.innerHTML = '<div class="bot-h">' + B_ROBOT + '<b>AI Assistant</b><span class="bot-beta">BETA</span><button id="bot_clear" type="button" title="Clear chat">🗑</button><span class="bot-on">● Online</span><button id="bot_close" type="button" title="Close">✕</button></div>' +
+      '<div class="bot-m" id="bot_m"></div><div class="bot-note">Answers are calculated from your dashboard data (no external AI) — verify important figures.</div>' +
+      '<div class="bot-f"><input id="bot_in" placeholder="Type your question…" autocomplete="off"><button id="bot_mic" type="button" title="Voice (tap and speak)">🎤</button><button id="bot_send" type="button" title="Send">➤</button></div>';
+    document.body.appendChild(fab); document.body.appendChild(pn); bWelcome();
+    fab.onclick = function(){ var on = pn.classList.toggle('on'); if(on){ if(!AL.r && typeof alPoll === 'function') alPoll(false); setTimeout(function(){ cg('bot_in').focus(); }, 50); } };
+    cg('bot_close').onclick = function(){ pn.classList.remove('on'); };
+    cg('bot_clear').onclick = bWelcome;
+    function send(){ var i = cg('bot_in'), v = i.value; i.value = ''; bAsk(v); }
+    cg('bot_send').onclick = send; cg('bot_in').addEventListener('keydown', function(e){ if(e.key === 'Enter') send(); });
+    pn.addEventListener('click', function(e){
+      var q = e.target.closest('[data-bot-q]'); if(q){ bAsk(q.getAttribute('data-bot-q')); return; }
+      var l = e.target.closest('[data-bot-lc]'); if(l){ bOpenLc(l.getAttribute('data-bot-lc')); return; }
+      var g = e.target.closest('[data-bot-go]'); if(g){ pn.classList.remove('on'); alGo(g.getAttribute('data-bot-go')); }
+    });
+    var SR = window.SpeechRecognition || window.webkitSpeechRecognition, mic = cg('bot_mic');
+    if(!SR) mic.style.display = 'none';
+    else mic.onclick = function(){
+      try { var rec = new SR(), inp = cg('bot_in'); rec.lang = /[\u0980-\u09FF]/.test(inp.value) ? 'bn-BD' : (navigator.language || 'en-US'); rec.interimResults = false;
+        rec.onstart = function(){ mic.classList.add('rec'); }; rec.onend = function(){ mic.classList.remove('rec'); };
+        rec.onresult = function(ev){ inp.value = ev.results[0][0].transcript; send(); }; rec.start(); } catch(e){}
+    };
+  })();
+  // ---- Factory VAT Acknowledgement app — Unit logins (admin) ----
+  var facG = { units: [] };
+  function facGMsg(t, bad){ var h = cg('fac_gHint'); h.textContent = t; h.style.color = bad ? 'var(--red, #d64545)' : 'var(--green, #1a8f4c)'; h.style.fontWeight = '600'; }
+  function facGUnits(){
+    var u = {}; var sel = cg('unitPlant'); if(sel) Array.prototype.forEach.call(sel.options, function(o){ if(o.value && o.value !== '__add_new__') u[o.value] = 1; });
+    ((AL.r && AL.r.pis) || []).forEach(function(p){ if(p.unit) u[String(p.unit).trim()] = 1; }); facG.units.forEach(function(x){ u[x.unit] = 1; });
+    return Object.keys(u).sort();
+  }
+  function facGRender(){
+    cg('fac_gUnitList').innerHTML = facGUnits().map(function(n){ return '<option value="' + escapeHtml(n) + '">'; }).join('');
+    var tb = cg('fac_gBody'); tb.innerHTML = facG.units.length ? '' : '<tr><td colspan="5" style="text-align:center;color:var(--muted);">No Unit logins yet.</td></tr>';
+    facG.units.forEach(function(a){
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + escapeHtml(a.unit) + '</td><td>' + escapeHtml(a.loginId) + '</td><td><span class="status-badge ' + (a.active ? 'fully' : 'notrec') + '">' + (a.active ? 'Active' : 'Blocked') + '</span></td><td>' + escapeHtml(String(a.lastLogin || '--').slice(0, 16).replace('T', ' ')) + '</td><td><button class="icon-btn" type="button" title="Edit">✎</button><button class="icon-btn" data-pin type="button" title="Reset PIN">🔑</button></td>';
+      function load(focusPin){ setVal('fac_gUnit', a.unit); setVal('fac_gLogin', a.loginId); setVal('fac_gPin', ''); cg('fac_gActive').value = a.active ? 'Yes' : 'No'; cg('fac_gUnit').scrollIntoView({ behavior: 'smooth', block: 'center' }); if(focusPin){ cg('fac_gPin').focus(); facGMsg('Type (or Generate) a new PIN for ' + a.unit + ', then click “Update PIN only”.', false); } }
+      tr.querySelector('button').addEventListener('click', function(){ load(false); }); tr.querySelector('[data-pin]').addEventListener('click', function(){ load(true); }); tb.appendChild(tr);
+    });
+  }
+  function facGLoad(){
+    if(!cg('fac_loginCard') || cg('fac_loginCard').style.display === 'none') return;
+    backendCall({ action: 'adminListFacLogins' }).then(function(r){ if(r && r.success){ facG.units = r.units || []; facGRender(); } else facGMsg('✗ Could not load Unit logins: ' + docErr((r && r.error) || 'unknown error'), true); }).catch(function(e){ facGMsg('✗ Could not reach Google Sheet: ' + e.message, true); });
+  }
+  function facGCall(action, rec, ok){
+    facGMsg('Saving to Google Sheet…', false);
+    backendCall({ action: action, unit: rec }).then(function(r){
+      if(r && r.success){ facGMsg('✓ ' + ok + (rec.pin ? '  —  PIN: ' + rec.pin + '  (give it to the Unit; it is stored only as a hash)' : ''), false); setVal('fac_gPin', ''); facGLoad(); }
+      else facGMsg('✗ ' + docErr((r && r.error) || 'Could not save'), true);
+    }).catch(function(e){ facGMsg('✗ Network error: ' + e.message, true); });
+  }
+  cg('fac_gShow').addEventListener('change', function(){ cg('fac_gPin').type = this.checked ? 'text' : 'password'; });
+  cg('fac_gClear').addEventListener('click', function(){ ['fac_gUnit', 'fac_gLogin', 'fac_gPin'].forEach(function(i){ setVal(i, ''); }); cg('fac_gActive').value = 'Yes'; facGMsg('', false); });
+  cg('fac_gGen').addEventListener('click', function(){ var a = new Uint32Array(1); (window.crypto || window.msCrypto).getRandomValues(a); setVal('fac_gPin', String(100000 + (a[0] % 900000))); cg('fac_gShow').checked = true; cg('fac_gPin').type = 'text'; facGMsg('PIN generated — click “Save Unit Login” (new Unit) or “Update PIN only” (existing Unit), then give this PIN to the Unit.', false); });
+  cg('fac_gSave').addEventListener('click', function(){
+    var rec = { unit: val('fac_gUnit'), loginId: val('fac_gLogin'), pin: cg('fac_gPin').value, active: cg('fac_gActive').value === 'Yes' };
+    if(!rec.unit || !rec.loginId){ facGMsg('✗ Unit and Login ID are required', true); return; }
+    facGCall('adminSaveFacLogin', rec, 'Unit login saved — ' + rec.unit);
+  });
+  cg('fac_gReset').addEventListener('click', function(){
+    var rec = { loginId: val('fac_gLogin'), pin: cg('fac_gPin').value };
+    if(!rec.loginId){ facGMsg('✗ Pick a Unit first (✎ or 🔑 in the list below)', true); return; }
+    if(rec.pin.length < 4){ facGMsg('✗ Type a new PIN of at least 4 characters (or click Generate PIN)', true); return; }
+    facGCall('adminResetFacPin', rec, 'PIN updated for ' + (val('fac_gUnit') || rec.loginId));
+  });
+  cg('fac_gTest').addEventListener('click', function(){
+    var rec = { loginId: val('fac_gLogin'), pin: cg('fac_gPin').value };
+    if(!rec.loginId){ facGMsg('✗ Type or pick the Login ID first', true); return; }
+    facGMsg('Checking the Sheet…', false);
+    backendCall({ action: 'adminTestFacLogin', unit: rec }).then(function(r){ if(!r || !r.success){ facGMsg('✗ ' + docErr((r && r.error) || 'failed'), true); return; } facGMsg(r.result, r.result.indexOf('OK') !== 0); }).catch(function(e){ facGMsg('✗ Network error: ' + e.message, true); });
+  });
+  document.addEventListener('click', function(e){ var t = e.target.closest && e.target.closest('[data-tab="factoryvat"]'); if(t) facGLoad(); });
   function alPermUi(){
     var st = window.AppNotify ? AppNotify.permission() : 'unsupported', t = cg('al_perm'), en = cg('al_enable'), ts = cg('al_test');
     en.style.display = st === 'default' ? '' : 'none'; ts.style.display = st === 'granted' ? '' : 'none';
@@ -5694,13 +6053,13 @@ select.dc-st{border:0;border-radius:99px;padding:5px 10px;font:700 12px inherit;
   function refreshAckInsFromLc(lcNo){
     var hint = document.getElementById('ackInsLookupHint');
     if(!lcNo){
-      setVal('ackIns_piNo', ''); setVal('ackIns_commodity', ''); setVal('ackIns_supplier', '');
+      setVal('ackIns_piNo', ''); setVal('ackIns_commodity', ''); setVal('ackIns_supplier', ''); setVal('ackIns_unit', '');
       if(hint){ hint.textContent = ''; hint.className = 'lookup-hint'; }
       return;
     }
     function applyLcAndPi(lcRec, piRec){
       setVal('ackIns_piNo', lcRec ? lcRec.piNumber : '');
-      setVal('ackIns_commodity', piRec ? piRec.commodity : '');
+      setVal('ackIns_commodity', piRec ? piRec.commodity : ''); setVal('ackIns_unit', piRec ? piRec.unitPlant : '');
       // "Insurance Company" pulls from the Insurance page's saved vendor
       // (insCompany), NOT the PI's own Supplier — those are different
       // things. piRec already carries insCompany/insCoverNoteNo too, since
@@ -5767,7 +6126,7 @@ select.dc-st{border:0;border-radius:99px;padding:5px 10px;font:700 12px inherit;
           }
         }).catch(function(){});
       } else if(!localLc){
-        setVal('ackIns_piNo', ''); setVal('ackIns_commodity', ''); setVal('ackIns_supplier', '');
+        setVal('ackIns_piNo', ''); setVal('ackIns_commodity', ''); setVal('ackIns_supplier', ''); setVal('ackIns_unit', '');
         populateAckInsShipmentDropdown([]);
         if(hint){ hint.textContent = 'No saved LC found for this number.'; hint.className = 'lookup-hint notfound'; }
       }
@@ -5815,14 +6174,14 @@ select.dc-st{border:0;border-radius:99px;padding:5px 10px;font:700 12px inherit;
       var lcNo = lcEl.value.trim();
       resetAckBeShipmentSelection();
       if(!lcNo){
-        setVal('ackBe_piNo', ''); setVal('ackBe_commodity', ''); setVal('ackBe_supplier', '');
+        setVal('ackBe_piNo', ''); setVal('ackBe_commodity', ''); setVal('ackBe_supplier', ''); setVal('ackBe_unit', '');
         renderAckBeShipmentTable([]);
         if(hint){ hint.textContent = ''; hint.className = 'lookup-hint'; }
         return;
       }
       function applyLcAndPi(lcRec, piRec){
         setVal('ackBe_piNo', lcRec ? lcRec.piNumber : '');
-        setVal('ackBe_commodity', piRec ? piRec.commodity : '');
+        setVal('ackBe_commodity', piRec ? piRec.commodity : ''); setVal('ackBe_unit', piRec ? piRec.unitPlant : '');
         setVal('ackBe_supplier', piRec ? piRec.supplierName : '');
       }
       var localLc = savedLCByNumber[lcNo];
@@ -5862,7 +6221,7 @@ select.dc-st{border:0;border-radius:99px;padding:5px 10px;font:700 12px inherit;
             if(hint){ hint.textContent = '✓ Loaded from Google Sheet.'; hint.className = 'lookup-hint found'; }
           });
         } else if(!localLc){
-          setVal('ackBe_piNo', ''); setVal('ackBe_commodity', ''); setVal('ackBe_supplier', '');
+          setVal('ackBe_piNo', ''); setVal('ackBe_commodity', ''); setVal('ackBe_supplier', ''); setVal('ackBe_unit', '');
           renderAckBeShipmentTable([]);
           if(hint){ hint.textContent = 'No saved LC found for this number.'; hint.className = 'lookup-hint notfound'; }
         }
@@ -5957,6 +6316,7 @@ select.dc-st{border:0;border-radius:99px;padding:5px 10px;font:700 12px inherit;
         piNo: val('ackIns_piNo'),
         lcNo: val('ackIns_lcNo'),
         commodity: val('ackIns_commodity'),
+        unit: val('ackIns_unit'),
         supplier: val('ackIns_supplier'),
         docNo: val('ackIns_coverNoteNo'),
         docDate: val('ackIns_coverNoteDate'),
@@ -5973,6 +6333,7 @@ select.dc-st{border:0;border-radius:99px;padding:5px 10px;font:700 12px inherit;
       lcNo: val('ackBe_lcNo'),
       blNo: ackBeSelectedBlNo,
       commodity: val('ackBe_commodity'),
+      unit: val('ackBe_unit'),
       supplier: val('ackBe_supplier'),
       docNo: val('ackBe_beNo'),
       docDate: val('ackBe_beDate'),
@@ -5988,23 +6349,32 @@ select.dc-st{border:0;border-radius:99px;padding:5px 10px;font:700 12px inherit;
 
   function clearAckForm(type){
     if(type === 'insurance'){
-      ['lcNo','piNo','commodity','supplier','coverNoteNo','coverNoteDate','receivedDate','ackBy','ackDate','remarks'].forEach(function(f){
+      ['lcNo','piNo','unit','commodity','supplier','coverNoteNo','coverNoteDate','receivedDate','ackBy','ackDate','remarks'].forEach(function(f){
         setVal('ackIns_' + f, '');
       });
+      ackAutoDefaults();
       var hint = document.getElementById('ackInsLookupHint');
       if(hint){ hint.textContent = ''; hint.className = 'lookup-hint'; }
       return;
     }
     // Bill of Entry ACK — handled in a later step.
-    ['lcNo','piNo','commodity','supplier'].forEach(function(f){ setVal('ackBe_' + f, ''); });
+    ['lcNo','piNo','unit','commodity','supplier'].forEach(function(f){ setVal('ackBe_' + f, ''); });
     resetAckBeShipmentSelection();
     renderAckBeShipmentTable([]);
+    ackAutoDefaults();
   }
 
+  function ackMe(){ var c = (typeof CC !== 'undefined' && CC) || {}; return (c.user && (c.user.name || c.user.username)) || ''; }   // CC is created later in the script, so it may not exist yet
+  function ackToday(){ var d = new Date(); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+  function ackAutoDefaults(){   // Sending Date = today and Acknowledged By = your name, whenever they are empty
+    [['ackIns_receivedDate', ackToday()], ['ackIns_ackBy', ackMe()], ['ackBe_sentToFactoryDate', ackToday()], ['ackBe_ackBy', ackMe()]].forEach(function(x){ var el = document.getElementById(x[0]); if(el && !el.value) el.value = x[1]; });
+  }
+  ackAutoDefaults(); setTimeout(ackAutoDefaults, 1500);
   var ackSaveBtnEl = document.getElementById('ackSaveBtn');
   var ACK_NOTE = '';
   function ackNote(){ var t = ACK_NOTE; ACK_NOTE = ''; return t; }
   function ackDoSave(){
+    ackAutoDefaults();
     var data = collectAckFormData(ackCurrentEntryType);
 
     if(ackCurrentEntryType === 'insurance'){
@@ -6016,6 +6386,7 @@ select.dc-st{border:0;border-radius:99px;padding:5px 10px;font:700 12px inherit;
       // PI/LC (matched by PI No, same as every other save in this app) — it
       // is NOT a separate record. Must include piDate so the backend picks
       // the correct month tab, same fix applied to every other save here.
+      if(!data.unit){ showToast('Unit is required — it loads from the LC’s PI. Pick an LC whose PI has a Unit.', 'danger'); return; }
       var piRecForAck = savedPIByNumber[data.piNo];
       var record = {
         piNumber: data.piNo,
@@ -6023,17 +6394,17 @@ select.dc-st{border:0;border-radius:99px;padding:5px 10px;font:700 12px inherit;
         piDate: piRecForAck ? piRecForAck.piDate : '',
         insCoverNoteNo: data.docNo,
         insCoverNoteDate: data.docDate,
-        insCoverAckReceivedDate: data.receivedDate,
+        insCoverAckReceivedDate: data.receivedDate,   // = Sending Date (column INSURANCE CN SND TO FACTORY DT)
         insCoverAckBy: data.ackBy,
-        insCoverAckDate: data.ackDate,
         insCoverAckRemarks: data.remarks
-      };
+      };   // the factory writes the Acknowledgement Date itself, in its own app
       if(!record.piDate){
         showToast('⚠ No PI Date found for PI No. ' + data.piNo + ' — this save may land in the wrong month tab.', 'danger');
       }
       backendCall({ action: 'save', record: record }).then(function(result){
         if(result.success){
           showToast('✓ Insurance Cover Note ACK saved to Google Sheet (tab: ' + result.tab + ')' + ackNote(), 'success');
+          backendCall({ action: 'facSend', kind: 'ins', lcNo: data.lcNo, piNo: data.piNo, ref: data.docNo, unit: data.unit }).catch(function(){});   // the factory gets a notification
           clearAckForm('insurance');
           if(ackCurrentListType === 'insurance') loadAckList();
         } else {
@@ -6053,15 +6424,14 @@ select.dc-st{border:0;border-radius:99px;padding:5px 10px;font:700 12px inherit;
         showToast('Enter an LC No. and select a shipment row above — everything else can be filled in later for a partial entry', 'danger');
         return;
       }
+      if(!data.unit){ showToast('Unit is required — it loads from the LC’s PI. Pick an LC whose PI has a Unit.', 'danger'); return; }
       var beRecord = {
         beNo: data.beNo,
         beDate: data.beDate,
         sentToFactoryDate: data.sentToFactoryDate,
-        receivedDate: data.receivedDate,
         ackBy: data.ackBy,
-        ackDate: data.ackDate,
         remarks: data.remarks
-      };
+      };   // Received Date / Acknowledgement Date are written by the factory (its own app)
       backendCall({ action: 'saveBEAck', lcNo: data.lcNo, blNo: ackBeSelectedBlNo, record: beRecord }).then(function(result){
         if(result.success){
           showToast('✓ Bill of Entry ACK saved to Google Sheet (Shipments tab, BL No. ' + ackBeSelectedBlNo + ')' + ackNote(), 'success');
@@ -6070,8 +6440,9 @@ select.dc-st{border:0;border-radius:99px;padding:5px 10px;font:700 12px inherit;
           var shipList = savedShipmentsByLC[data.lcNo];
           if(shipList){
             var s = shipList.filter(function(x){ return x.blNo === ackBeSelectedBlNo; })[0];
-            if(s) Object.assign(s, { beNo: data.beNo, beDate: data.beDate, beSentToFactoryDate: data.sentToFactoryDate, beAckReceivedDate: data.receivedDate, beAckBy: data.ackBy, beAckDate: data.ackDate, beAckRemarks: data.remarks });
+            if(s) Object.assign(s, { beNo: data.beNo, beDate: data.beDate, beSentToFactoryDate: data.sentToFactoryDate, beAckBy: data.ackBy, beAckRemarks: data.remarks });
           }
+          backendCall({ action: 'facSend', kind: 'be', lcNo: data.lcNo, blNo: ackBeSelectedBlNo, piNo: data.piNo, ref: data.beNo, unit: data.unit }).catch(function(){});   // the factory gets a notification
           clearAckForm('be');
           if(ackCurrentListType === 'be') loadAckList();
         } else {
@@ -6089,7 +6460,7 @@ select.dc-st{border:0;border-radius:99px;padding:5px 10px;font:700 12px inherit;
     var type = ackCurrentEntryType, data = collectAckFormData(type);
     var spec = type === 'insurance' ? [['ackIns_fileCoverNote', 'Insurance Cover Note'], ['ackIns_fileAckDoc', 'Insurance Cover Note ACK']] : [['ackBe_fileBeDoc', 'Bill of Entry'], ['ackBe_fileAckDoc', 'Bill of Entry ACK']];
     var items = []; spec.forEach(function(sp){ var el = cg(sp[0]); if(el && el.files) Array.prototype.forEach.call(el.files, function(f){ items.push({ file: f, docName: sp[1] }); }); });
-    if(!items.length || !data.lcNo || (type === 'be' && !ackBeSelectedBlNo)){ ackDoSave(); return; }   // nothing to upload, or the form is incomplete: the normal save shows its own message
+    if(!items.length || !data.lcNo || !data.unit || (type === 'be' && !ackBeSelectedBlNo)){ ackDoSave(); return; }   // nothing to upload, or the form is incomplete: the normal save shows its own message
     var bad = items.map(function(it){ return docCheck(it.file); }).filter(Boolean)[0]; if(bad){ showToast('✗ ' + bad, 'danger'); return; }
     var btn = ackSaveBtnEl, docs = [], p = Promise.resolve(); btn.disabled = true;
     items.forEach(function(it, i){ p = p.then(function(){ showToast('Uploading ' + (i + 1) + ' of ' + items.length + ': ' + it.file.name, 'success');
@@ -7904,6 +8275,7 @@ select.dc-st{border:0;border-radius:99px;padding:5px 10px;font:700 12px inherit;
     var scard = document.getElementById('st_cloud'); if(scard) scard.style.display = ccCanSync() ? '' : 'none';
     var dcard = document.getElementById('st_drive'); if(dcard) dcard.style.display = ccCanSync() ? '' : 'none';
     var lcard = document.getElementById('st_lists'); if(lcard) lcard.style.display = ccCanSync() ? '' : 'none';
+    var fcard = document.getElementById('fac_loginCard'); if(fcard) fcard.style.display = ccCanSync() ? '' : 'none';
     document.querySelectorAll('.nav-item[data-tab], .tab[data-tab]').forEach(function(el){
       var k = el.getAttribute('data-tab'); if(CC_TAB_MODULE[k]) el.style.display = ccCan(k, 'view') ? '' : 'none';
     });
